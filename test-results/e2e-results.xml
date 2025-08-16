@@ -1,0 +1,472 @@
+<testsuites id="" name="" tests="220" failures="0" skipped="0" errors="0" time="197.840011">
+<testsuite name="auth.spec.ts" timestamp="2025-08-16T11:29:54.640Z" hostname="chromium" tests="10" failures="0" skipped="0" time="41.75" errors="0">
+<testcase name="Authentication Flow › should display sign-in page for unauthenticated users" classname="auth.spec.ts" time="2.942">
+</testcase>
+<testcase name="Authentication Flow › should have proper page title and meta tags" classname="auth.spec.ts" time="2.335">
+</testcase>
+<testcase name="Authentication Flow › should display Google sign-in button with proper styling" classname="auth.spec.ts" time="2.923">
+</testcase>
+<testcase name="Authentication Flow › should be responsive on mobile devices" classname="auth.spec.ts" time="3.029">
+</testcase>
+<testcase name="Authentication Flow › should handle sign-in button click" classname="auth.spec.ts" time="2.875">
+</testcase>
+<testcase name="Authentication Flow › should display error handling gracefully" classname="auth.spec.ts" time="2.696">
+</testcase>
+<testcase name="Authentication Flow › should have accessible form elements" classname="auth.spec.ts" time="2.069">
+</testcase>
+<testcase name="Authentication Flow › should load without JavaScript errors" classname="auth.spec.ts" time="14.29">
+</testcase>
+<testcase name="Authentication Flow › should work with keyboard navigation" classname="auth.spec.ts" time="2.054">
+</testcase>
+<testcase name="Authentication Flow › should have proper security headers" classname="auth.spec.ts" time="6.537">
+</testcase>
+</testsuite>
+<testsuite name="dashboard.spec.ts" timestamp="2025-08-16T11:29:54.640Z" hostname="chromium" tests="14" failures="0" skipped="0" time="88.158" errors="0">
+<testcase name="Dashboard Functionality › should display dashboard with user welcome message" classname="dashboard.spec.ts" time="6.115">
+</testcase>
+<testcase name="Dashboard Functionality › should display account overview cards" classname="dashboard.spec.ts" time="6.014">
+</testcase>
+<testcase name="Dashboard Functionality › should display masked account numbers" classname="dashboard.spec.ts" time="4.329">
+</testcase>
+<testcase name="Dashboard Functionality › should display quick actions section" classname="dashboard.spec.ts" time="4.241">
+</testcase>
+<testcase name="Dashboard Functionality › should display recent activity section" classname="dashboard.spec.ts" time="8.099">
+</testcase>
+<testcase name="Dashboard Functionality › should have functional header with user dropdown" classname="dashboard.spec.ts" time="8.271">
+</testcase>
+<testcase name="Dashboard Functionality › should have working theme toggle" classname="dashboard.spec.ts" time="7.536">
+</testcase>
+<testcase name="Dashboard Functionality › should be responsive on different screen sizes" classname="dashboard.spec.ts" time="8.2">
+</testcase>
+<testcase name="Dashboard Functionality › should handle sign out functionality" classname="dashboard.spec.ts" time="7.916">
+</testcase>
+<testcase name="Dashboard Functionality › should display proper currency formatting" classname="dashboard.spec.ts" time="5.957">
+</testcase>
+<testcase name="Dashboard Functionality › should show account type capitalization correctly" classname="dashboard.spec.ts" time="5.439">
+</testcase>
+<testcase name="Dashboard Functionality › should handle loading states gracefully" classname="dashboard.spec.ts" time="5.353">
+</testcase>
+<testcase name="Dashboard Functionality › should have proper accessibility features" classname="dashboard.spec.ts" time="5.32">
+</testcase>
+<testcase name="Dashboard Functionality › should not have console errors" classname="dashboard.spec.ts" time="5.368">
+</testcase>
+</testsuite>
+<testsuite name="responsive.spec.ts" timestamp="2025-08-16T11:29:54.640Z" hostname="chromium" tests="20" failures="0" skipped="0" time="60.936" errors="0">
+<testcase name="Responsive Design Tests › should display sign-in page correctly on Desktop (1920x1080)" classname="responsive.spec.ts" time="5.532">
+</testcase>
+<testcase name="Responsive Design Tests › should display dashboard correctly on Desktop (1920x1080)" classname="responsive.spec.ts" time="3.029">
+</testcase>
+<testcase name="Responsive Design Tests › should display sign-in page correctly on Laptop (1366x768)" classname="responsive.spec.ts" time="3.174">
+</testcase>
+<testcase name="Responsive Design Tests › should display dashboard correctly on Laptop (1366x768)" classname="responsive.spec.ts" time="2.783">
+</testcase>
+<testcase name="Responsive Design Tests › should display sign-in page correctly on Tablet (768x1024)" classname="responsive.spec.ts" time="3.314">
+</testcase>
+<testcase name="Responsive Design Tests › should display dashboard correctly on Tablet (768x1024)" classname="responsive.spec.ts" time="2.993">
+</testcase>
+<testcase name="Responsive Design Tests › should display sign-in page correctly on Mobile Large (414x896)" classname="responsive.spec.ts" time="2.819">
+</testcase>
+<testcase name="Responsive Design Tests › should display dashboard correctly on Mobile Large (414x896)" classname="responsive.spec.ts" time="2.599">
+</testcase>
+<testcase name="Responsive Design Tests › should display sign-in page correctly on Mobile (375x667)" classname="responsive.spec.ts" time="2.299">
+</testcase>
+<testcase name="Responsive Design Tests › should display dashboard correctly on Mobile (375x667)" classname="responsive.spec.ts" time="2.204">
+</testcase>
+<testcase name="Responsive Design Tests › should display sign-in page correctly on Mobile Small (320x568)" classname="responsive.spec.ts" time="2.031">
+</testcase>
+<testcase name="Responsive Design Tests › should display dashboard correctly on Mobile Small (320x568)" classname="responsive.spec.ts" time="2.16">
+</testcase>
+<testcase name="Responsive Design Tests › should have touch-friendly buttons on mobile devices" classname="responsive.spec.ts" time="1.771">
+</testcase>
+<testcase name="Responsive Design Tests › should handle horizontal scrolling properly" classname="responsive.spec.ts" time="2.294">
+</testcase>
+<testcase name="Responsive Design Tests › should maintain readability at different zoom levels" classname="responsive.spec.ts" time="2.307">
+</testcase>
+<testcase name="Responsive Design Tests › should work with browser device emulation" classname="responsive.spec.ts" time="9.32">
+</testcase>
+<testcase name="Responsive Design Tests › should handle orientation changes on mobile" classname="responsive.spec.ts" time="2.157">
+</testcase>
+<testcase name="Responsive Design Tests › should maintain proper spacing and margins" classname="responsive.spec.ts" time="2.216">
+</testcase>
+<testcase name="Responsive Design Tests › should have proper font sizes across devices" classname="responsive.spec.ts" time="4.401">
+</testcase>
+<testcase name="Responsive Design Tests › should maintain aspect ratios for images and icons" classname="responsive.spec.ts" time="1.533">
+</testcase>
+</testsuite>
+<testsuite name="auth.spec.ts" timestamp="2025-08-16T11:29:54.640Z" hostname="firefox" tests="10" failures="0" skipped="0" time="71.851" errors="0">
+<testcase name="Authentication Flow › should display sign-in page for unauthenticated users" classname="auth.spec.ts" time="4.35">
+</testcase>
+<testcase name="Authentication Flow › should have proper page title and meta tags" classname="auth.spec.ts" time="5.126">
+</testcase>
+<testcase name="Authentication Flow › should display Google sign-in button with proper styling" classname="auth.spec.ts" time="6.462">
+</testcase>
+<testcase name="Authentication Flow › should be responsive on mobile devices" classname="auth.spec.ts" time="8.195">
+</testcase>
+<testcase name="Authentication Flow › should handle sign-in button click" classname="auth.spec.ts" time="9.433">
+</testcase>
+<testcase name="Authentication Flow › should display error handling gracefully" classname="auth.spec.ts" time="10.487">
+</testcase>
+<testcase name="Authentication Flow › should have accessible form elements" classname="auth.spec.ts" time="4.735">
+</testcase>
+<testcase name="Authentication Flow › should load without JavaScript errors" classname="auth.spec.ts" time="7.531">
+</testcase>
+<testcase name="Authentication Flow › should work with keyboard navigation" classname="auth.spec.ts" time="5.473">
+</testcase>
+<testcase name="Authentication Flow › should have proper security headers" classname="auth.spec.ts" time="10.059">
+</testcase>
+</testsuite>
+<testsuite name="dashboard.spec.ts" timestamp="2025-08-16T11:29:54.640Z" hostname="firefox" tests="14" failures="0" skipped="0" time="85.302" errors="0">
+<testcase name="Dashboard Functionality › should display dashboard with user welcome message" classname="dashboard.spec.ts" time="6.762">
+</testcase>
+<testcase name="Dashboard Functionality › should display account overview cards" classname="dashboard.spec.ts" time="6.438">
+</testcase>
+<testcase name="Dashboard Functionality › should display masked account numbers" classname="dashboard.spec.ts" time="5.624">
+</testcase>
+<testcase name="Dashboard Functionality › should display quick actions section" classname="dashboard.spec.ts" time="6.346">
+</testcase>
+<testcase name="Dashboard Functionality › should display recent activity section" classname="dashboard.spec.ts" time="6.535">
+</testcase>
+<testcase name="Dashboard Functionality › should have functional header with user dropdown" classname="dashboard.spec.ts" time="5.823">
+</testcase>
+<testcase name="Dashboard Functionality › should have working theme toggle" classname="dashboard.spec.ts" time="7.736">
+</testcase>
+<testcase name="Dashboard Functionality › should be responsive on different screen sizes" classname="dashboard.spec.ts" time="6.959">
+</testcase>
+<testcase name="Dashboard Functionality › should handle sign out functionality" classname="dashboard.spec.ts" time="5.309">
+</testcase>
+<testcase name="Dashboard Functionality › should display proper currency formatting" classname="dashboard.spec.ts" time="4.632">
+</testcase>
+<testcase name="Dashboard Functionality › should show account type capitalization correctly" classname="dashboard.spec.ts" time="5.633">
+</testcase>
+<testcase name="Dashboard Functionality › should handle loading states gracefully" classname="dashboard.spec.ts" time="5.857">
+</testcase>
+<testcase name="Dashboard Functionality › should have proper accessibility features" classname="dashboard.spec.ts" time="5.981">
+</testcase>
+<testcase name="Dashboard Functionality › should not have console errors" classname="dashboard.spec.ts" time="5.667">
+</testcase>
+</testsuite>
+<testsuite name="responsive.spec.ts" timestamp="2025-08-16T11:29:54.640Z" hostname="firefox" tests="20" failures="0" skipped="0" time="113.267" errors="0">
+<testcase name="Responsive Design Tests › should display sign-in page correctly on Desktop (1920x1080)" classname="responsive.spec.ts" time="5.73">
+</testcase>
+<testcase name="Responsive Design Tests › should display dashboard correctly on Desktop (1920x1080)" classname="responsive.spec.ts" time="4.2">
+</testcase>
+<testcase name="Responsive Design Tests › should display sign-in page correctly on Laptop (1366x768)" classname="responsive.spec.ts" time="4.843">
+</testcase>
+<testcase name="Responsive Design Tests › should display dashboard correctly on Laptop (1366x768)" classname="responsive.spec.ts" time="4.499">
+</testcase>
+<testcase name="Responsive Design Tests › should display sign-in page correctly on Tablet (768x1024)" classname="responsive.spec.ts" time="4.516">
+</testcase>
+<testcase name="Responsive Design Tests › should display dashboard correctly on Tablet (768x1024)" classname="responsive.spec.ts" time="4.77">
+</testcase>
+<testcase name="Responsive Design Tests › should display sign-in page correctly on Mobile Large (414x896)" classname="responsive.spec.ts" time="4.214">
+</testcase>
+<testcase name="Responsive Design Tests › should display dashboard correctly on Mobile Large (414x896)" classname="responsive.spec.ts" time="4.205">
+</testcase>
+<testcase name="Responsive Design Tests › should display sign-in page correctly on Mobile (375x667)" classname="responsive.spec.ts" time="4.491">
+</testcase>
+<testcase name="Responsive Design Tests › should display dashboard correctly on Mobile (375x667)" classname="responsive.spec.ts" time="4.939">
+</testcase>
+<testcase name="Responsive Design Tests › should display sign-in page correctly on Mobile Small (320x568)" classname="responsive.spec.ts" time="4.232">
+</testcase>
+<testcase name="Responsive Design Tests › should display dashboard correctly on Mobile Small (320x568)" classname="responsive.spec.ts" time="4.547">
+</testcase>
+<testcase name="Responsive Design Tests › should have touch-friendly buttons on mobile devices" classname="responsive.spec.ts" time="4.074">
+</testcase>
+<testcase name="Responsive Design Tests › should handle horizontal scrolling properly" classname="responsive.spec.ts" time="3.536">
+</testcase>
+<testcase name="Responsive Design Tests › should maintain readability at different zoom levels" classname="responsive.spec.ts" time="4.596">
+</testcase>
+<testcase name="Responsive Design Tests › should work with browser device emulation" classname="responsive.spec.ts" time="18.549">
+</testcase>
+<testcase name="Responsive Design Tests › should handle orientation changes on mobile" classname="responsive.spec.ts" time="4.278">
+</testcase>
+<testcase name="Responsive Design Tests › should maintain proper spacing and margins" classname="responsive.spec.ts" time="3.764">
+</testcase>
+<testcase name="Responsive Design Tests › should have proper font sizes across devices" classname="responsive.spec.ts" time="15.782">
+</testcase>
+<testcase name="Responsive Design Tests › should maintain aspect ratios for images and icons" classname="responsive.spec.ts" time="3.502">
+</testcase>
+</testsuite>
+<testsuite name="auth.spec.ts" timestamp="2025-08-16T11:29:54.640Z" hostname="webkit" tests="10" failures="0" skipped="0" time="47.515" errors="0">
+<testcase name="Authentication Flow › should display sign-in page for unauthenticated users" classname="auth.spec.ts" time="5.217">
+</testcase>
+<testcase name="Authentication Flow › should have proper page title and meta tags" classname="auth.spec.ts" time="5.445">
+</testcase>
+<testcase name="Authentication Flow › should display Google sign-in button with proper styling" classname="auth.spec.ts" time="5.932">
+</testcase>
+<testcase name="Authentication Flow › should be responsive on mobile devices" classname="auth.spec.ts" time="5.77">
+</testcase>
+<testcase name="Authentication Flow › should handle sign-in button click" classname="auth.spec.ts" time="3.476">
+</testcase>
+<testcase name="Authentication Flow › should display error handling gracefully" classname="auth.spec.ts" time="4.958">
+</testcase>
+<testcase name="Authentication Flow › should have accessible form elements" classname="auth.spec.ts" time="3.595">
+</testcase>
+<testcase name="Authentication Flow › should load without JavaScript errors" classname="auth.spec.ts" time="4.35">
+</testcase>
+<testcase name="Authentication Flow › should work with keyboard navigation" classname="auth.spec.ts" time="4.367">
+</testcase>
+<testcase name="Authentication Flow › should have proper security headers" classname="auth.spec.ts" time="4.405">
+</testcase>
+</testsuite>
+<testsuite name="dashboard.spec.ts" timestamp="2025-08-16T11:29:54.640Z" hostname="webkit" tests="14" failures="0" skipped="0" time="64.347" errors="0">
+<testcase name="Dashboard Functionality › should display dashboard with user welcome message" classname="dashboard.spec.ts" time="5.211">
+</testcase>
+<testcase name="Dashboard Functionality › should display account overview cards" classname="dashboard.spec.ts" time="3.97">
+</testcase>
+<testcase name="Dashboard Functionality › should display masked account numbers" classname="dashboard.spec.ts" time="4.472">
+</testcase>
+<testcase name="Dashboard Functionality › should display quick actions section" classname="dashboard.spec.ts" time="4.229">
+</testcase>
+<testcase name="Dashboard Functionality › should display recent activity section" classname="dashboard.spec.ts" time="3.748">
+</testcase>
+<testcase name="Dashboard Functionality › should have functional header with user dropdown" classname="dashboard.spec.ts" time="3.972">
+</testcase>
+<testcase name="Dashboard Functionality › should have working theme toggle" classname="dashboard.spec.ts" time="8.258">
+</testcase>
+<testcase name="Dashboard Functionality › should be responsive on different screen sizes" classname="dashboard.spec.ts" time="5.472">
+</testcase>
+<testcase name="Dashboard Functionality › should handle sign out functionality" classname="dashboard.spec.ts" time="5.188">
+</testcase>
+<testcase name="Dashboard Functionality › should display proper currency formatting" classname="dashboard.spec.ts" time="4.35">
+</testcase>
+<testcase name="Dashboard Functionality › should show account type capitalization correctly" classname="dashboard.spec.ts" time="4.295">
+</testcase>
+<testcase name="Dashboard Functionality › should handle loading states gracefully" classname="dashboard.spec.ts" time="3.473">
+</testcase>
+<testcase name="Dashboard Functionality › should have proper accessibility features" classname="dashboard.spec.ts" time="4.029">
+</testcase>
+<testcase name="Dashboard Functionality › should not have console errors" classname="dashboard.spec.ts" time="3.68">
+</testcase>
+</testsuite>
+<testsuite name="responsive.spec.ts" timestamp="2025-08-16T11:29:54.640Z" hostname="webkit" tests="20" failures="0" skipped="0" time="80.165" errors="0">
+<testcase name="Responsive Design Tests › should display sign-in page correctly on Desktop (1920x1080)" classname="responsive.spec.ts" time="4.238">
+</testcase>
+<testcase name="Responsive Design Tests › should display dashboard correctly on Desktop (1920x1080)" classname="responsive.spec.ts" time="5.283">
+</testcase>
+<testcase name="Responsive Design Tests › should display sign-in page correctly on Laptop (1366x768)" classname="responsive.spec.ts" time="3.393">
+</testcase>
+<testcase name="Responsive Design Tests › should display dashboard correctly on Laptop (1366x768)" classname="responsive.spec.ts" time="3.972">
+</testcase>
+<testcase name="Responsive Design Tests › should display sign-in page correctly on Tablet (768x1024)" classname="responsive.spec.ts" time="3.162">
+</testcase>
+<testcase name="Responsive Design Tests › should display dashboard correctly on Tablet (768x1024)" classname="responsive.spec.ts" time="4.241">
+</testcase>
+<testcase name="Responsive Design Tests › should display sign-in page correctly on Mobile Large (414x896)" classname="responsive.spec.ts" time="2.484">
+</testcase>
+<testcase name="Responsive Design Tests › should display dashboard correctly on Mobile Large (414x896)" classname="responsive.spec.ts" time="3.09">
+</testcase>
+<testcase name="Responsive Design Tests › should display sign-in page correctly on Mobile (375x667)" classname="responsive.spec.ts" time="2.775">
+</testcase>
+<testcase name="Responsive Design Tests › should display dashboard correctly on Mobile (375x667)" classname="responsive.spec.ts" time="3.463">
+</testcase>
+<testcase name="Responsive Design Tests › should display sign-in page correctly on Mobile Small (320x568)" classname="responsive.spec.ts" time="2.804">
+</testcase>
+<testcase name="Responsive Design Tests › should display dashboard correctly on Mobile Small (320x568)" classname="responsive.spec.ts" time="3.144">
+</testcase>
+<testcase name="Responsive Design Tests › should have touch-friendly buttons on mobile devices" classname="responsive.spec.ts" time="2.715">
+</testcase>
+<testcase name="Responsive Design Tests › should handle horizontal scrolling properly" classname="responsive.spec.ts" time="2.626">
+</testcase>
+<testcase name="Responsive Design Tests › should maintain readability at different zoom levels" classname="responsive.spec.ts" time="3.562">
+</testcase>
+<testcase name="Responsive Design Tests › should work with browser device emulation" classname="responsive.spec.ts" time="15.632">
+</testcase>
+<testcase name="Responsive Design Tests › should handle orientation changes on mobile" classname="responsive.spec.ts" time="2.302">
+</testcase>
+<testcase name="Responsive Design Tests › should maintain proper spacing and margins" classname="responsive.spec.ts" time="2.519">
+</testcase>
+<testcase name="Responsive Design Tests › should have proper font sizes across devices" classname="responsive.spec.ts" time="6.306">
+</testcase>
+<testcase name="Responsive Design Tests › should maintain aspect ratios for images and icons" classname="responsive.spec.ts" time="2.454">
+</testcase>
+</testsuite>
+<testsuite name="auth.spec.ts" timestamp="2025-08-16T11:29:54.640Z" hostname="Mobile Chrome" tests="10" failures="0" skipped="0" time="27.635" errors="0">
+<testcase name="Authentication Flow › should display sign-in page for unauthenticated users" classname="auth.spec.ts" time="2.161">
+</testcase>
+<testcase name="Authentication Flow › should have proper page title and meta tags" classname="auth.spec.ts" time="2.138">
+</testcase>
+<testcase name="Authentication Flow › should display Google sign-in button with proper styling" classname="auth.spec.ts" time="1.838">
+</testcase>
+<testcase name="Authentication Flow › should be responsive on mobile devices" classname="auth.spec.ts" time="2.898">
+</testcase>
+<testcase name="Authentication Flow › should handle sign-in button click" classname="auth.spec.ts" time="2.353">
+</testcase>
+<testcase name="Authentication Flow › should display error handling gracefully" classname="auth.spec.ts" time="2.286">
+</testcase>
+<testcase name="Authentication Flow › should have accessible form elements" classname="auth.spec.ts" time="2.898">
+</testcase>
+<testcase name="Authentication Flow › should load without JavaScript errors" classname="auth.spec.ts" time="4.271">
+</testcase>
+<testcase name="Authentication Flow › should work with keyboard navigation" classname="auth.spec.ts" time="2.253">
+</testcase>
+<testcase name="Authentication Flow › should have proper security headers" classname="auth.spec.ts" time="4.539">
+</testcase>
+</testsuite>
+<testsuite name="dashboard.spec.ts" timestamp="2025-08-16T11:29:54.640Z" hostname="Mobile Chrome" tests="14" failures="0" skipped="0" time="42.222" errors="0">
+<testcase name="Dashboard Functionality › should display dashboard with user welcome message" classname="dashboard.spec.ts" time="2.385">
+</testcase>
+<testcase name="Dashboard Functionality › should display account overview cards" classname="dashboard.spec.ts" time="2.734">
+</testcase>
+<testcase name="Dashboard Functionality › should display masked account numbers" classname="dashboard.spec.ts" time="2.369">
+</testcase>
+<testcase name="Dashboard Functionality › should display quick actions section" classname="dashboard.spec.ts" time="2.39">
+</testcase>
+<testcase name="Dashboard Functionality › should display recent activity section" classname="dashboard.spec.ts" time="3.17">
+</testcase>
+<testcase name="Dashboard Functionality › should have functional header with user dropdown" classname="dashboard.spec.ts" time="2.981">
+</testcase>
+<testcase name="Dashboard Functionality › should have working theme toggle" classname="dashboard.spec.ts" time="3.25">
+</testcase>
+<testcase name="Dashboard Functionality › should be responsive on different screen sizes" classname="dashboard.spec.ts" time="3.731">
+</testcase>
+<testcase name="Dashboard Functionality › should handle sign out functionality" classname="dashboard.spec.ts" time="2.818">
+</testcase>
+<testcase name="Dashboard Functionality › should display proper currency formatting" classname="dashboard.spec.ts" time="4.208">
+</testcase>
+<testcase name="Dashboard Functionality › should show account type capitalization correctly" classname="dashboard.spec.ts" time="3.242">
+</testcase>
+<testcase name="Dashboard Functionality › should handle loading states gracefully" classname="dashboard.spec.ts" time="3.121">
+</testcase>
+<testcase name="Dashboard Functionality › should have proper accessibility features" classname="dashboard.spec.ts" time="3.16">
+</testcase>
+<testcase name="Dashboard Functionality › should not have console errors" classname="dashboard.spec.ts" time="2.663">
+</testcase>
+</testsuite>
+<testsuite name="responsive.spec.ts" timestamp="2025-08-16T11:29:54.640Z" hostname="Mobile Chrome" tests="20" failures="0" skipped="0" time="73.569" errors="0">
+<testcase name="Responsive Design Tests › should display sign-in page correctly on Desktop (1920x1080)" classname="responsive.spec.ts" time="3.866">
+</testcase>
+<testcase name="Responsive Design Tests › should display dashboard correctly on Desktop (1920x1080)" classname="responsive.spec.ts" time="4.92">
+</testcase>
+<testcase name="Responsive Design Tests › should display sign-in page correctly on Laptop (1366x768)" classname="responsive.spec.ts" time="3.69">
+</testcase>
+<testcase name="Responsive Design Tests › should display dashboard correctly on Laptop (1366x768)" classname="responsive.spec.ts" time="3.776">
+</testcase>
+<testcase name="Responsive Design Tests › should display sign-in page correctly on Tablet (768x1024)" classname="responsive.spec.ts" time="3.121">
+</testcase>
+<testcase name="Responsive Design Tests › should display dashboard correctly on Tablet (768x1024)" classname="responsive.spec.ts" time="4.228">
+</testcase>
+<testcase name="Responsive Design Tests › should display sign-in page correctly on Mobile Large (414x896)" classname="responsive.spec.ts" time="2.974">
+</testcase>
+<testcase name="Responsive Design Tests › should display dashboard correctly on Mobile Large (414x896)" classname="responsive.spec.ts" time="3.157">
+</testcase>
+<testcase name="Responsive Design Tests › should display sign-in page correctly on Mobile (375x667)" classname="responsive.spec.ts" time="3">
+</testcase>
+<testcase name="Responsive Design Tests › should display dashboard correctly on Mobile (375x667)" classname="responsive.spec.ts" time="2.928">
+</testcase>
+<testcase name="Responsive Design Tests › should display sign-in page correctly on Mobile Small (320x568)" classname="responsive.spec.ts" time="2.289">
+</testcase>
+<testcase name="Responsive Design Tests › should display dashboard correctly on Mobile Small (320x568)" classname="responsive.spec.ts" time="3.17">
+</testcase>
+<testcase name="Responsive Design Tests › should have touch-friendly buttons on mobile devices" classname="responsive.spec.ts" time="3.069">
+</testcase>
+<testcase name="Responsive Design Tests › should handle horizontal scrolling properly" classname="responsive.spec.ts" time="2.41">
+</testcase>
+<testcase name="Responsive Design Tests › should maintain readability at different zoom levels" classname="responsive.spec.ts" time="2.743">
+</testcase>
+<testcase name="Responsive Design Tests › should work with browser device emulation" classname="responsive.spec.ts" time="11.408">
+</testcase>
+<testcase name="Responsive Design Tests › should handle orientation changes on mobile" classname="responsive.spec.ts" time="2.291">
+</testcase>
+<testcase name="Responsive Design Tests › should maintain proper spacing and margins" classname="responsive.spec.ts" time="2.461">
+</testcase>
+<testcase name="Responsive Design Tests › should have proper font sizes across devices" classname="responsive.spec.ts" time="6.033">
+</testcase>
+<testcase name="Responsive Design Tests › should maintain aspect ratios for images and icons" classname="responsive.spec.ts" time="2.035">
+</testcase>
+</testsuite>
+<testsuite name="auth.spec.ts" timestamp="2025-08-16T11:29:54.640Z" hostname="Mobile Safari" tests="10" failures="0" skipped="0" time="42.458" errors="0">
+<testcase name="Authentication Flow › should display sign-in page for unauthenticated users" classname="auth.spec.ts" time="3.241">
+</testcase>
+<testcase name="Authentication Flow › should have proper page title and meta tags" classname="auth.spec.ts" time="3.123">
+</testcase>
+<testcase name="Authentication Flow › should display Google sign-in button with proper styling" classname="auth.spec.ts" time="3.119">
+</testcase>
+<testcase name="Authentication Flow › should be responsive on mobile devices" classname="auth.spec.ts" time="3.262">
+</testcase>
+<testcase name="Authentication Flow › should handle sign-in button click" classname="auth.spec.ts" time="6.453">
+</testcase>
+<testcase name="Authentication Flow › should display error handling gracefully" classname="auth.spec.ts" time="4.483">
+</testcase>
+<testcase name="Authentication Flow › should have accessible form elements" classname="auth.spec.ts" time="2.65">
+</testcase>
+<testcase name="Authentication Flow › should load without JavaScript errors" classname="auth.spec.ts" time="4.723">
+</testcase>
+<testcase name="Authentication Flow › should work with keyboard navigation" classname="auth.spec.ts" time="5.161">
+</testcase>
+<testcase name="Authentication Flow › should have proper security headers" classname="auth.spec.ts" time="6.243">
+</testcase>
+</testsuite>
+<testsuite name="dashboard.spec.ts" timestamp="2025-08-16T11:29:54.640Z" hostname="Mobile Safari" tests="14" failures="0" skipped="0" time="59.116" errors="0">
+<testcase name="Dashboard Functionality › should display dashboard with user welcome message" classname="dashboard.spec.ts" time="5.284">
+</testcase>
+<testcase name="Dashboard Functionality › should display account overview cards" classname="dashboard.spec.ts" time="4.794">
+</testcase>
+<testcase name="Dashboard Functionality › should display masked account numbers" classname="dashboard.spec.ts" time="3.406">
+</testcase>
+<testcase name="Dashboard Functionality › should display quick actions section" classname="dashboard.spec.ts" time="3.796">
+</testcase>
+<testcase name="Dashboard Functionality › should display recent activity section" classname="dashboard.spec.ts" time="3.594">
+</testcase>
+<testcase name="Dashboard Functionality › should have functional header with user dropdown" classname="dashboard.spec.ts" time="4.222">
+</testcase>
+<testcase name="Dashboard Functionality › should have working theme toggle" classname="dashboard.spec.ts" time="7.421">
+</testcase>
+<testcase name="Dashboard Functionality › should be responsive on different screen sizes" classname="dashboard.spec.ts" time="5.945">
+</testcase>
+<testcase name="Dashboard Functionality › should handle sign out functionality" classname="dashboard.spec.ts" time="3.968">
+</testcase>
+<testcase name="Dashboard Functionality › should display proper currency formatting" classname="dashboard.spec.ts" time="3.549">
+</testcase>
+<testcase name="Dashboard Functionality › should show account type capitalization correctly" classname="dashboard.spec.ts" time="3.35">
+</testcase>
+<testcase name="Dashboard Functionality › should handle loading states gracefully" classname="dashboard.spec.ts" time="3.113">
+</testcase>
+<testcase name="Dashboard Functionality › should have proper accessibility features" classname="dashboard.spec.ts" time="3.489">
+</testcase>
+<testcase name="Dashboard Functionality › should not have console errors" classname="dashboard.spec.ts" time="3.185">
+</testcase>
+</testsuite>
+<testsuite name="responsive.spec.ts" timestamp="2025-08-16T11:29:54.640Z" hostname="Mobile Safari" tests="20" failures="0" skipped="0" time="85.862" errors="0">
+<testcase name="Responsive Design Tests › should display sign-in page correctly on Desktop (1920x1080)" classname="responsive.spec.ts" time="5.098">
+</testcase>
+<testcase name="Responsive Design Tests › should display dashboard correctly on Desktop (1920x1080)" classname="responsive.spec.ts" time="8.252">
+</testcase>
+<testcase name="Responsive Design Tests › should display sign-in page correctly on Laptop (1366x768)" classname="responsive.spec.ts" time="4.076">
+</testcase>
+<testcase name="Responsive Design Tests › should display dashboard correctly on Laptop (1366x768)" classname="responsive.spec.ts" time="5.355">
+</testcase>
+<testcase name="Responsive Design Tests › should display sign-in page correctly on Tablet (768x1024)" classname="responsive.spec.ts" time="3.594">
+</testcase>
+<testcase name="Responsive Design Tests › should display dashboard correctly on Tablet (768x1024)" classname="responsive.spec.ts" time="6.62">
+</testcase>
+<testcase name="Responsive Design Tests › should display sign-in page correctly on Mobile Large (414x896)" classname="responsive.spec.ts" time="2.934">
+</testcase>
+<testcase name="Responsive Design Tests › should display dashboard correctly on Mobile Large (414x896)" classname="responsive.spec.ts" time="4.543">
+</testcase>
+<testcase name="Responsive Design Tests › should display sign-in page correctly on Mobile (375x667)" classname="responsive.spec.ts" time="2.852">
+</testcase>
+<testcase name="Responsive Design Tests › should display dashboard correctly on Mobile (375x667)" classname="responsive.spec.ts" time="3.695">
+</testcase>
+<testcase name="Responsive Design Tests › should display sign-in page correctly on Mobile Small (320x568)" classname="responsive.spec.ts" time="2.585">
+</testcase>
+<testcase name="Responsive Design Tests › should display dashboard correctly on Mobile Small (320x568)" classname="responsive.spec.ts" time="3.393">
+</testcase>
+<testcase name="Responsive Design Tests › should have touch-friendly buttons on mobile devices" classname="responsive.spec.ts" time="3.14">
+</testcase>
+<testcase name="Responsive Design Tests › should handle horizontal scrolling properly" classname="responsive.spec.ts" time="3.101">
+</testcase>
+<testcase name="Responsive Design Tests › should maintain readability at different zoom levels" classname="responsive.spec.ts" time="3.428">
+</testcase>
+<testcase name="Responsive Design Tests › should work with browser device emulation" classname="responsive.spec.ts" time="8.673">
+</testcase>
+<testcase name="Responsive Design Tests › should handle orientation changes on mobile" classname="responsive.spec.ts" time="3.312">
+</testcase>
+<testcase name="Responsive Design Tests › should maintain proper spacing and margins" classname="responsive.spec.ts" time="2.796">
+</testcase>
+<testcase name="Responsive Design Tests › should have proper font sizes across devices" classname="responsive.spec.ts" time="5.93">
+</testcase>
+<testcase name="Responsive Design Tests › should maintain aspect ratios for images and icons" classname="responsive.spec.ts" time="2.485">
+</testcase>
+</testsuite>
+</testsuites>

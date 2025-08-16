@@ -2,6 +2,7 @@
 
 import { SessionProvider } from "next-auth/react"
 import { ThemeProvider } from "@/components/providers/theme-provider"
+import { QueryProvider } from "@/components/providers/query-provider"
 import { DashboardHeader } from "@/components/dashboard/dashboard-header"
 import { AccountOverview } from "@/components/dashboard/account-overview"
 import { QuickActions } from "@/components/dashboard/quick-actions"
@@ -38,31 +39,33 @@ export default function TestDashboardPage() {
         enableSystem
         disableTransitionOnChange
       >
-        <div className="min-h-screen bg-background">
-          <DashboardHeader />
+        <QueryProvider>
+          <div className="min-h-screen bg-background">
+            <DashboardHeader />
 
-          <main className="container mx-auto py-8">
-            <div className="mb-8">
-              <h2 className="text-3xl font-bold tracking-tight mb-2">
-                Welcome back, Test!
-              </h2>
-              <p className="text-muted-foreground">
-                Here&apos;s an overview of your accounts and recent activity.
-              </p>
-            </div>
-
-            <div className="grid gap-8 lg:grid-cols-3">
-              <div className="lg:col-span-2 space-y-8">
-                <AccountOverview accounts={mockBankAccounts} />
-                <QuickActions />
+            <main className="container mx-auto py-8">
+              <div className="mb-8">
+                <h2 className="text-3xl font-bold tracking-tight mb-2">
+                  Welcome back, Test!
+                </h2>
+                <p className="text-muted-foreground">
+                  Here&apos;s an overview of your accounts and recent activity.
+                </p>
               </div>
 
-              <div className="lg:col-span-1">
-                <RecentActivity />
+              <div className="grid gap-8 lg:grid-cols-3">
+                <div className="lg:col-span-2 space-y-8">
+                  <AccountOverview accounts={mockBankAccounts} />
+                  <QuickActions />
+                </div>
+
+                <div className="lg:col-span-1">
+                  <RecentActivity />
+                </div>
               </div>
-            </div>
-          </main>
-        </div>
+            </main>
+          </div>
+        </QueryProvider>
       </ThemeProvider>
     </SessionProvider>
   )
