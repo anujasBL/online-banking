@@ -27,7 +27,8 @@ describe('Authentication Integration', () => {
     it('renders sign-in form with all required elements', () => {
       mockUseSession.mockReturnValue({
         data: null,
-        status: 'unauthenticated'
+        status: 'unauthenticated',
+        update: jest.fn()
       })
 
       render(<SignInForm />)
@@ -40,7 +41,8 @@ describe('Authentication Integration', () => {
     it('handles Google sign-in button click', async () => {
       mockUseSession.mockReturnValue({
         data: null,
-        status: 'unauthenticated'
+        status: 'unauthenticated',
+        update: jest.fn()
       })
 
       mockSignIn.mockResolvedValue({
@@ -65,7 +67,8 @@ describe('Authentication Integration', () => {
     it('displays loading state during authentication', async () => {
       mockUseSession.mockReturnValue({
         data: null,
-        status: 'loading'
+        status: 'loading',
+        update: jest.fn()
       })
 
       render(<SignInForm />)
@@ -77,7 +80,8 @@ describe('Authentication Integration', () => {
     it('handles authentication errors gracefully', async () => {
       mockUseSession.mockReturnValue({
         data: null,
-        status: 'unauthenticated'
+        status: 'unauthenticated',
+        update: jest.fn()
       })
 
       mockSignIn.mockResolvedValue({
@@ -105,7 +109,8 @@ describe('Authentication Integration', () => {
     it('handles loading session state correctly', () => {
       mockUseSession.mockReturnValue({
         data: null,
-        status: 'loading'
+        status: 'loading',
+        update: jest.fn()
       })
       
       render(<SignInForm />)
@@ -117,7 +122,8 @@ describe('Authentication Integration', () => {
     it('handles unauthenticated session state correctly', () => {
       mockUseSession.mockReturnValue({
         data: null,
-        status: 'unauthenticated'
+        status: 'unauthenticated',
+        update: jest.fn()
       })
       
       render(<SignInForm />)
@@ -138,7 +144,8 @@ describe('Authentication Integration', () => {
           },
           expires: '2024-12-31'
         },
-        status: 'authenticated'
+        status: 'authenticated',
+        update: jest.fn()
       })
       
       render(<SignInForm />)
@@ -152,7 +159,8 @@ describe('Authentication Integration', () => {
     it('configures Google OAuth provider correctly', () => {
       mockUseSession.mockReturnValue({
         data: null,
-        status: 'unauthenticated'
+        status: 'unauthenticated',
+        update: jest.fn()
       })
 
       render(<SignInForm />)
@@ -168,7 +176,8 @@ describe('Authentication Integration', () => {
     it('handles OAuth callback URL correctly', () => {
       mockUseSession.mockReturnValue({
         data: null,
-        status: 'unauthenticated'
+        status: 'unauthenticated',
+        update: jest.fn()
       })
 
       render(<SignInForm />)
@@ -188,7 +197,8 @@ describe('Authentication Integration', () => {
     it('displays proper styling and layout', () => {
       mockUseSession.mockReturnValue({
         data: null,
-        status: 'unauthenticated'
+        status: 'unauthenticated',
+        update: jest.fn()
       })
 
       render(<SignInForm />)
@@ -204,7 +214,8 @@ describe('Authentication Integration', () => {
     it('maintains accessibility standards', () => {
       mockUseSession.mockReturnValue({
         data: null,
-        status: 'unauthenticated'
+        status: 'unauthenticated',
+        update: jest.fn()
       })
 
       render(<SignInForm />)
@@ -224,7 +235,8 @@ describe('Authentication Integration', () => {
       // Start with unauthenticated state
       mockUseSession.mockReturnValue({
         data: null,
-        status: 'unauthenticated'
+        status: 'unauthenticated',
+        update: jest.fn()
       })
 
       const { rerender } = render(<SignInForm />)
@@ -241,7 +253,8 @@ describe('Authentication Integration', () => {
       // Simulate loading state
       mockUseSession.mockReturnValue({
         data: null,
-        status: 'loading'
+        status: 'loading',
+        update: jest.fn()
       })
 
       rerender(<SignInForm />)
@@ -260,7 +273,8 @@ describe('Authentication Integration', () => {
           },
           expires: '2024-12-31'
         },
-        status: 'authenticated'
+        status: 'authenticated',
+        update: jest.fn()
       })
 
       rerender(<SignInForm />)
@@ -274,7 +288,8 @@ describe('Authentication Integration', () => {
     it('calls signIn function when button is clicked', async () => {
       mockUseSession.mockReturnValue({
         data: null,
-        status: 'unauthenticated'
+        status: 'unauthenticated',
+        update: jest.fn()
       })
 
       // Mock successful sign-in
@@ -305,7 +320,8 @@ describe('Authentication Integration', () => {
     it('handles OAuth provider errors', async () => {
       mockUseSession.mockReturnValue({
         data: null,
-        status: 'unauthenticated'
+        status: 'unauthenticated',
+        update: jest.fn()
       })
 
       mockSignIn.mockResolvedValue({

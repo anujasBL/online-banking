@@ -1,4 +1,4 @@
-import { test, expect, devices } from '@playwright/test'
+import { test, expect, devices, BrowserContextOptions } from '@playwright/test'
 
 const viewports = [
   { name: 'Desktop', width: 1920, height: 1080 },
@@ -13,7 +13,10 @@ test.describe('Responsive Design Tests', () => {
   test.beforeEach(async ({ page }) => {
     // Mock authentication for dashboard tests
     await page.addInitScript(() => {
-      window.__NEXT_DATA__ = {
+      (window as any).__NEXT_DATA__ = {
+        page: '/test-dashboard',
+        query: {},
+        buildId: 'test-build',
         props: {
           pageProps: {
             session: {
@@ -162,9 +165,10 @@ test.describe('Responsive Design Tests', () => {
     ]
     
     for (const deviceName of devices) {
-      const context = await browser.newContext({
-        ...devices[deviceName as keyof typeof devices] || {},
-      })
+      const device = devices[deviceName as keyof typeof devices]
+      const context = await browser.newContext(
+        (typeof device === 'object' && device !== null && !Array.isArray(device)) ? device as BrowserContextOptions : {}
+      )
       
       const page = await context.newPage()
       await page.goto('/')

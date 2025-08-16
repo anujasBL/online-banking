@@ -51,6 +51,14 @@ jest.mock('./src/lib/prisma', () => ({
       update: jest.fn(),
       delete: jest.fn(),
     },
+    transaction: {
+      findMany: jest.fn(),
+      findUnique: jest.fn(),
+      create: jest.fn(),
+      update: jest.fn(),
+      delete: jest.fn(),
+      count: jest.fn(),
+    },
     account: {
       findUnique: jest.fn(),
       create: jest.fn(),

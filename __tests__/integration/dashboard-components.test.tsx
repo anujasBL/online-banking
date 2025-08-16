@@ -4,7 +4,7 @@ import { AccountOverview } from '@/components/dashboard/account-overview'
 import { DashboardHeader } from '@/components/dashboard/dashboard-header'
 import { QuickActions } from '@/components/dashboard/quick-actions'
 import { RecentActivity } from '@/components/dashboard/recent-activity'
-import { BankAccount } from '@prisma/client'
+import { Prisma } from '@prisma/client'
 
 // Mock dependencies
 jest.mock('next-auth/react')
@@ -31,7 +31,15 @@ const mockSession = {
   expires: '2024-12-31'
 }
 
-const mockBankAccounts: Partial<BankAccount>[] = [
+// Use the component's expected interface, not Prisma's
+interface BankAccount {
+  id: string
+  accountType: string
+  balance: number
+  accountNumber: string
+}
+
+const mockBankAccounts: BankAccount[] = [
   {
     id: '1',
     accountType: 'CHECKING',
@@ -51,7 +59,8 @@ describe('Dashboard Components Integration', () => {
     jest.clearAllMocks()
     mockUseSession.mockReturnValue({
       data: mockSession,
-      status: 'authenticated'
+      status: 'authenticated',
+      update: jest.fn()
     })
   })
 

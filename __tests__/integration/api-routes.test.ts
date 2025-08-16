@@ -160,7 +160,7 @@ describe('API Routes Integration', () => {
           where: { userId: mockSession.user.id }
         })
       } catch (error) {
-        expect(error.message).toBe('Database connection failed')
+        expect((error as Error).message).toBe('Database connection failed')
       }
 
       expect(prisma.bankAccount.findMany).toHaveBeenCalled()
