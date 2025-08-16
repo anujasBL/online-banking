@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation"
 import { getServerSession } from "next-auth"
-import { authOptions } from "@/src/lib/auth"
+import { authOptions } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 import { DashboardHeader } from "@/components/dashboard/dashboard-header"
 import { AccountOverview } from "@/components/dashboard/account-overview"
@@ -28,7 +28,7 @@ export default async function DashboardPage() {
   }
 
   // Get or create bank accounts for the user
-  let bankAccounts = await prisma.bankAccount.findMany({
+  const rawBankAccounts = await prisma.bankAccount.findMany({
     where: { userId: session.user.id },
     select: {
       id: true,
@@ -38,19 +38,29 @@ export default async function DashboardPage() {
     },
   })
 
+  // Define the accounts array with proper typing
+  let bankAccounts: Array<{
+    id: string
+    accountType: string
+    balance: number
+    accountNumber: string
+  }>
+
   // If user has no bank accounts, create a default checking account
-  if (bankAccounts.length === 0) {
+  if (rawBankAccounts.length === 0) {
     const newAccount = await createDefaultBankAccount(session.user.id)
-    bankAccounts = [{
+    const convertedAccount = {
       id: newAccount.id,
       accountType: newAccount.accountType,
       balance: Number(newAccount.balance.toString()),
       accountNumber: newAccount.accountNumber,
-    }]
+    }
+    bankAccounts = [convertedAccount]
   } else {
     // Convert Decimal to number for display
-    bankAccounts = bankAccounts.map(account => ({
+    bankAccounts = rawBankAccounts.map(account => ({
       ...account,
+      accountType: account.accountType,
       balance: Number(account.balance.toString())
     }))
   }
@@ -76,7 +86,7 @@ export default async function DashboardPage() {
           </div>
           
           <div className="lg:col-span-1">
-            <RecentActivity />
+            <RecentActivity accountId={bankAccounts[0]?.id} />
           </div>
         </div>
       </main>

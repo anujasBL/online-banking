@@ -72,6 +72,41 @@ model BankAccount {
   updatedAt   DateTime @updatedAt
   
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Transaction relationships
+  sentTransfers     Transaction[] @relation("SenderAccount")
+  receivedTransfers Transaction[] @relation("ReceiverAccount")
+}
+
+model Transaction {
+  id                String            @id @default(cuid())
+  amount            Decimal           @db.Decimal(10, 2)
+  description       String?
+  type              TransactionType
+  status            TransactionStatus @default(PENDING)
+  reference         String            @unique @default(cuid())
+  
+  // Account relationships
+  senderAccountId   String?
+  receiverAccountId String?
+  senderAccount     BankAccount?      @relation("SenderAccount", fields: [senderAccountId], references: [id])
+  receiverAccount   BankAccount?      @relation("ReceiverAccount", fields: [receiverAccountId], references: [id])
+  
+  // External transfer data
+  externalAccountNumber String?
+  externalRoutingNumber String?
+  externalBankName      String?
+  
+  // Metadata
+  metadata          Json?
+  processingFee     Decimal?          @db.Decimal(10, 2)
+  
+  // Timestamps
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  processedAt       DateTime?
+  
+  @@map("transactions")
 }
 
 enum Role {
@@ -82,4 +117,21 @@ enum Role {
 enum AccountType {
   CHECKING
   SAVINGS
+}
+
+enum TransactionType {
+  INTERNAL_TRANSFER
+  EXTERNAL_TRANSFER
+  DEPOSIT
+  WITHDRAWAL
+  FEE
+  INTEREST
+}
+
+enum TransactionStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+  CANCELLED
 }

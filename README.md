@@ -1,227 +1,263 @@
-# Online Banking System - MVP Iteration 1
+# Online Banking System - Phase 1 Iteration 2
 
-A modern, secure online banking system built with Next.js 14, TypeScript, and Prisma ORM.
+A modern, secure online banking platform built with Next.js 14, TypeScript, and PostgreSQL. This iteration adds **fund transfers** and **transaction history** capabilities to the core authentication and account management system.
 
-## 🚀 Features (Iteration 1)
+## 🚀 New Features in Iteration 2
 
-- **Secure Authentication**: Google OAuth 2.0 integration via NextAuth.js
-- **User Dashboard**: Clean, responsive interface displaying account balances and user profile
-- **Account Management**: Automatic creation of default checking account for new users
-- **Theme Support**: Dark/light mode toggle
-- **Responsive Design**: Mobile-first design using Tailwind CSS and shadcn/ui components
+### ✅ Fund Transfers
+- **Internal Transfers**: Transfer money between accounts within the system
+- **External Transfers**: Send money to external bank accounts
+- **Real-time Processing**: Internal transfers process immediately
+- **Transfer Fees**: Automatic fee calculation for external transfers
+- **Validation**: Comprehensive validation using Zod schemas
 
-## 🛠️ Tech Stack
+### ✅ Transaction History
+- **Real-time Updates**: Live transaction data using React Query
+- **Advanced Filtering**: Filter by account, type, status, date range, amount
+- **Pagination**: Efficient pagination for large transaction sets
+- **Rich Details**: Complete transaction information with counterparty details
 
+### ✅ Email Notifications
+- **Transfer Confirmations**: Automatic email notifications for all transfers
+- **Transaction Receipts**: Detailed email receipts with transaction details
+- **SendGrid Integration**: Production-ready email delivery system
+
+### ✅ Enhanced Dashboard
+- **Live Activity Feed**: Real-time transaction updates
+- **Quick Actions**: Direct access to transfer and history features
+- **Account Overview**: Updated with real-time balance changes
+
+## 🛠 Tech Stack
+
+### Core Technologies
 - **Frontend**: Next.js 14 (App Router), TypeScript, Tailwind CSS
 - **Backend**: Next.js API Routes, Prisma ORM
-- **Database**: PostgreSQL (Neon)
+- **Database**: Neon PostgreSQL
 - **Authentication**: NextAuth.js with Google OAuth 2.0
-- **UI Components**: shadcn/ui, Radix UI primitives
-- **Deployment**: Vercel
+- **Email**: SendGrid for notifications
+- **State Management**: React Query for server state
+- **Validation**: Zod schemas
+- **UI Components**: Radix UI + shadcn/ui
+
+### Development Tools
+- **Testing**: Jest, React Testing Library, Playwright
+- **Code Quality**: ESLint, Prettier, TypeScript
 - **CI/CD**: GitHub Actions
+- **Deployment**: Vercel
 
 ## 📋 Prerequisites
 
-- Node.js 22.18.0 (LTS) or higher
-- PostgreSQL database (we recommend Neon for cloud deployment)
-- Google OAuth 2.0 credentials
+- Node.js 22.18.0 (LTS) or later
 - npm or yarn package manager
+- Neon PostgreSQL database
+- Google OAuth 2.0 credentials
+- SendGrid account (optional for email features)
 
-## 🔧 Installation
+## 🚀 Quick Start
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd online-banking-system
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Environment Configuration**
-   
-   Copy the example environment file:
-   ```bash
-   cp env.example .env.local
-   ```
-   
-   Update `.env.local` with your actual values:
-   ```env
-   # Database - Get from Neon console
-   DATABASE_URL="postgresql://username:password@host:port/database?sslmode=require"
-   
-   # NextAuth.js - Generate a random secret
-   NEXTAUTH_URL="http://localhost:3000"
-   NEXTAUTH_SECRET="your-secret-key-here"
-   
-   # Google OAuth - Get from Google Cloud Console
-   GOOGLE_CLIENT_ID="your-google-client-id"
-   GOOGLE_CLIENT_SECRET="your-google-client-secret"
-   
-   NODE_ENV="development"
-   ```
-
-4. **Database Setup**
-   ```bash
-   # Generate Prisma client
-   npm run db:generate
-   
-   # Push schema to database
-   npm run db:push
-   ```
-
-5. **Start Development Server**
-   ```bash
-   npm run dev
-   ```
-
-   Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-## 🔐 Setting Up Google OAuth
-
-1. Go to [Google Cloud Console](https://console.cloud.google.com/)
-2. Create a new project or select existing one
-3. Enable the Google+ API
-4. Go to "Credentials" and create OAuth 2.0 Client ID
-5. Add authorized redirect URI: `http://localhost:3000/api/auth/callback/google`
-6. Copy Client ID and Secret to your `.env.local`
-
-## 🗄️ Database Schema
-
-The current schema includes:
-- **Users**: User profiles from Google OAuth
-- **Accounts**: NextAuth.js session management
-- **BankAccounts**: User bank accounts with balances
-- **Sessions**: NextAuth.js sessions
-- **VerificationTokens**: NextAuth.js verification
-
-## 📁 Project Structure
-
-```
-src/
-├── app/                    # Next.js App Router pages
-│   ├── api/auth/          # NextAuth.js API routes
-│   ├── auth/signin/       # Sign-in page
-│   ├── dashboard/         # Main dashboard
-│   ├── globals.css        # Global styles
-│   ├── layout.tsx         # Root layout
-│   └── page.tsx           # Home page
-├── components/            # React components
-│   ├── auth/              # Authentication components
-│   ├── dashboard/         # Dashboard components
-│   ├── providers/         # Context providers
-│   ├── theme-toggle.tsx   # Theme switcher
-│   └── ui/                # shadcn/ui components
-├── lib/                   # Utility libraries
-│   ├── auth.ts            # NextAuth configuration
-│   ├── prisma.ts          # Prisma client
-│   └── utils.ts           # Helper functions
-└── types/                 # TypeScript type definitions
-    └── next-auth.d.ts     # NextAuth type extensions
-```
-
-## 🚀 Deployment
-
-### Vercel Deployment
-
-1. **Connect to Vercel**
-   ```bash
-   npm i -g vercel
-   vercel --prod
-   ```
-
-2. **Set Environment Variables**
-   Add all environment variables in Vercel dashboard
-
-3. **Database Migration**
-   Run `npm run db:push` after deployment
-
-### GitHub Actions CI/CD
-
-The project includes automated CI/CD pipeline that:
-- Runs linting and type checking
-- Builds the application
-- Deploys to Vercel on main branch
-
-Required GitHub Secrets:
-- `DATABASE_URL`
-- `NEXTAUTH_URL`
-- `NEXTAUTH_SECRET`
-- `GOOGLE_CLIENT_ID`
-- `GOOGLE_CLIENT_SECRET`
-- `VERCEL_TOKEN`
-- `VERCEL_ORG_ID`
-- `VERCEL_PROJECT_ID`
-
-## 🧪 Development Commands
-
+### 1. Clone & Install
 ```bash
-# Development
-npm run dev              # Start dev server
-npm run build           # Build for production
-npm run start           # Start production server
-
-# Code Quality
-npm run lint            # Run ESLint
-npm run lint:fix        # Fix ESLint errors
-npm run type-check      # TypeScript type checking
-npm run format          # Format with Prettier
-
-# Database
-npm run db:generate     # Generate Prisma client
-npm run db:push         # Push schema to database
-npm run db:migrate      # Create and apply migrations
-npm run db:studio       # Open Prisma Studio
+git clone [repository-url]
+cd online-banking
+npm install
 ```
 
-## 📚 Iteration Roadmap
+### 2. Environment Setup
+Copy `.env.example` to `.env.local` and configure:
 
-### ✅ Iteration 1 (Current)
-- Google OAuth 2.0 authentication
-- User dashboard with account overview
-- Basic account management
-- Responsive UI with theme support
+```env
+# Database
+DATABASE_URL="postgresql://username:password@hostname:5432/database?sslmode=require"
 
-### 🔄 Iteration 2 (Next)
-- Internal fund transfers
-- Transaction history
-- Email notifications via SendGrid
-- Real-time updates with React Query
+# NextAuth.js
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET="your-nextauth-secret"
 
-### 🔮 Iteration 3 (Future)
-- External bill payments via Stripe
-- Admin panel
-- Advanced user management
+# Google OAuth 2.0
+GOOGLE_CLIENT_ID="your-google-client-id"
+GOOGLE_CLIENT_SECRET="your-google-client-secret"
+
+# SendGrid Email (Optional)
+SENDGRID_API_KEY="your-sendgrid-api-key"
+SENDGRID_FROM_EMAIL="noreply@yourdomain.com"
+SENDGRID_FROM_NAME="Online Banking System"
+```
+
+### 3. Database Setup
+```bash
+# Generate Prisma client
+npm run db:generate
+
+# Apply database schema
+npm run db:push
+
+# Initialize database (optional)
+npm run db:init
+```
+
+### 4. Development Server
+```bash
+npm run dev
+```
+
+Visit `http://localhost:3000` to access the application.
+
+## 📊 Database Schema
+
+### Core Tables
+- **Users**: User accounts with Google OAuth integration
+- **BankAccounts**: Customer bank accounts with balances
+- **Transactions**: Complete transaction history with metadata
+- **NextAuth Tables**: Session and account management
+
+### Transaction Types
+- `INTERNAL_TRANSFER`: Transfers within the system
+- `EXTERNAL_TRANSFER`: Transfers to external banks
+- `DEPOSIT`: Account deposits
+- `WITHDRAWAL`: Account withdrawals
+- `FEE`: Processing fees
+- `INTEREST`: Interest payments
+
+### Transaction Statuses
+- `PENDING`: Awaiting processing
+- `PROCESSING`: Currently being processed
+- `COMPLETED`: Successfully completed
+- `FAILED`: Processing failed
+- `CANCELLED`: Cancelled by user or system
 
 ## 🔒 Security Features
 
-- HTTPS enforcement
-- Secure session handling
-- Role-based access control
-- SQL injection prevention via Prisma
-- XSS protection via Next.js
+- **OAuth 2.0**: Secure Google authentication
+- **HTTPS**: Enforced secure connections
+- **Input Validation**: Comprehensive validation with Zod
+- **SQL Injection Protection**: Prisma ORM prevents SQL injection
+- **Account Verification**: Transfer authorization checks
+- **Rate Limiting**: Built-in API rate limiting
+
+## 🧪 Testing
+
+### Run All Tests
+```bash
+# Unit tests
+npm run test:unit
+
+# Integration tests
+npm run test:integration
+
+# End-to-end tests
+npm run test:e2e
+
+# All tests
+npm run test:all
+```
+
+### Test Coverage
+```bash
+npm run test:coverage
+```
+
+### Development Testing
+```bash
+# Watch mode
+npm run test:watch
+
+# E2E with UI
+npm run test:e2e:ui
+```
+
+## 📦 Available Scripts
+
+### Development
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
+- `npm run format` - Format code with Prettier
+
+### Database
+- `npm run db:generate` - Generate Prisma client
+- `npm run db:push` - Push schema to database
+- `npm run db:migrate` - Run database migrations
+- `npm run db:studio` - Open Prisma Studio
+- `npm run db:init` - Initialize database
+
+### Testing
+- `npm run test` - Run unit tests
+- `npm run test:unit` - Unit tests only
+- `npm run test:integration` - Integration tests only
+- `npm run test:e2e` - End-to-end tests
+- `npm run test:coverage` - Test coverage report
+
+## 🌐 API Endpoints
+
+### Authentication
+- `GET /api/auth/*` - NextAuth.js authentication routes
+
+### Accounts
+- `GET /api/accounts` - Get user accounts
+- `POST /api/accounts` - Create new account
+
+### Transfers
+- `POST /api/transfers/internal` - Process internal transfer
+- `POST /api/transfers/external` - Process external transfer
+
+### Transactions
+- `GET /api/transactions` - Get transaction history (with filters)
+- `GET /api/transactions/[reference]` - Get specific transaction
+
+## 🎯 Features by Iteration
+
+### ✅ Iteration 1 (Completed)
+- User authentication (Google OAuth 2.0)
+- Account dashboard with balance display
+- Basic account management
+- Responsive UI with dark/light mode
+
+### ✅ Iteration 2 (Current)
+- Internal fund transfers
+- External fund transfers  
+- Transaction history with filtering
+- Email notifications
+- Real-time updates with React Query
+
+### 🔄 Iteration 3 (Planned)
+- Bill payments via Stripe
+- Admin panel for user management
+- Advanced reporting
+- Mobile optimization
+
+## 🚢 Deployment
+
+### Vercel (Recommended)
+1. Connect your GitHub repository to Vercel
+2. Configure environment variables in Vercel dashboard
+3. Deploy automatically on git push
+
+### Manual Deployment
+```bash
+npm run build
+npm run start
+```
 
 ## 🤝 Contributing
 
 1. Fork the repository
-2. Create feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Open Pull Request
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 📞 Support
+## 🆘 Support
 
 For support and questions:
-- Create an issue in this repository
-- Check the documentation in `/docs`
-- Review the SRS document for detailed requirements
+1. Check the [Issues](../../issues) section
+2. Review the documentation
+3. Contact the development team
 
 ---
 
-**Built with ❤️ by the OBS Development Team**
+**Built with ❤️ using Next.js, TypeScript, and PostgreSQL**

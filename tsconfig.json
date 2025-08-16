@@ -20,10 +20,11 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
+      "@/*": ["./src/*", "./*"],
+      "@/src/*": ["./src/*"],
       "@/components/*": ["./src/components/*"],
       "@/lib/*": ["./src/lib/*"],
-      "@/app/*": ["./src/app/*"],
+      "@/app/*": ["./app/*"],
       "@/types/*": ["./src/types/*"]
     }
   },

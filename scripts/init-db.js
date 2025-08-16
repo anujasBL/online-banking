@@ -18,6 +18,10 @@ async function main() {
     const accountCount = await prisma.bankAccount.count()
     console.log(`🏦 Current bank account count: ${accountCount}`)
     
+    // Check if we can query transactions table
+    const transactionCount = await prisma.transaction.count()
+    console.log(`💳 Current transaction count: ${transactionCount}`)
+    
     console.log('🎉 Database initialization complete!')
     
   } catch (error) {
