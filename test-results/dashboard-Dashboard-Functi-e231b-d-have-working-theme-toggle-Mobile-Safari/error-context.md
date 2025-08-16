@@ -1,0 +1,10 @@
+# Page snapshot
+
+```yaml
+- heading "Welcome to OBS" [level=3]
+- paragraph: Sign in to your Online Banking System account
+- button "Sign in with Google":
+  - img
+  - text: Sign in with Google
+- alert
+```
