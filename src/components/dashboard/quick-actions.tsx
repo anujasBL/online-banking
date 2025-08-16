@@ -3,13 +3,7 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import {
-  ArrowUpRight,
-  ArrowDownLeft,
-  CreditCard,
-  FileText,
-  History,
-} from "lucide-react"
+import { ArrowUpRight, CreditCard, FileText, History } from "lucide-react"
 
 export function QuickActions() {
   return (

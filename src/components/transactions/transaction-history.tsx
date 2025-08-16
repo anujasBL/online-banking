@@ -21,12 +21,10 @@ import {
 import { Badge } from "@/components/ui/badge"
 import {
   Loader2,
-  Search,
   Filter,
   ArrowUpRight,
   ArrowDownLeft,
   RefreshCw,
-  Calendar,
 } from "lucide-react"
 import {
   useTransactions,

@@ -24,14 +24,16 @@ export async function GET(request: NextRequest) {
       startDate: searchParams.get("startDate") || undefined,
       endDate: searchParams.get("endDate") || undefined,
       minAmount: searchParams.get("minAmount")
-        ? parseFloat(searchParams.get("minAmount")!)
+        ? parseFloat(searchParams.get("minAmount") || "0")
         : undefined,
       maxAmount: searchParams.get("maxAmount")
-        ? parseFloat(searchParams.get("maxAmount")!)
+        ? parseFloat(searchParams.get("maxAmount") || "0")
         : undefined,
-      page: searchParams.get("page") ? parseInt(searchParams.get("page")!) : 1,
+      page: searchParams.get("page")
+        ? parseInt(searchParams.get("page") || "1")
+        : 1,
       limit: searchParams.get("limit")
-        ? parseInt(searchParams.get("limit")!)
+        ? parseInt(searchParams.get("limit") || "20")
         : 20,
     }
 

@@ -28,7 +28,9 @@ export interface TransactionEmailData {
  */
 export async function sendEmail(data: EmailData): Promise<boolean> {
   if (!process.env.SENDGRID_API_KEY) {
-    console.warn("SendGrid API key not configured. Email not sent.")
+    if (process.env.NODE_ENV === "development") {
+      console.warn("SendGrid API key not configured. Email not sent.")
+    }
     return false
   }
 
@@ -47,7 +49,9 @@ export async function sendEmail(data: EmailData): Promise<boolean> {
     await sgMail.send(msg)
     return true
   } catch (error) {
-    console.error("Failed to send email:", error)
+    if (process.env.NODE_ENV === "development") {
+      console.error("Failed to send email:", error)
+    }
     return false
   }
 }

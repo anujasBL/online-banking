@@ -10,7 +10,7 @@ declare global {
       toBeDisabled(): R
       toBeVisible(): R
       toBeChecked(): R
-      toHaveValue(value: any): R
+      toHaveValue(value: string | number | string[]): R
       toHaveTextContent(text: string | RegExp): R
       toHaveFocus(): R
       toBeRequired(): R

@@ -129,7 +129,7 @@ export function TransferForm({ accounts, onSuccess }: TransferFormProps) {
           description: `Transfer completed with reference: ${result.reference}`,
         })
         internalForm.reset()
-        onSuccess?.(result.reference!)
+        onSuccess?.(result.reference || "")
       }
     } catch (error) {
       toast({
@@ -160,7 +160,7 @@ export function TransferForm({ accounts, onSuccess }: TransferFormProps) {
           description: `External transfer initiated with reference: ${result.reference}`,
         })
         externalForm.reset()
-        onSuccess?.(result.reference!)
+        onSuccess?.(result.reference || "")
       }
     } catch (error) {
       toast({

@@ -13,7 +13,13 @@ export function formatCurrency(amount: number): string {
 }
 
 export function generateAccountNumber(): string {
-  return Math.random().toString().slice(2, 12).padStart(10, "0")
+  // Generate a random number and ensure it doesn't start with 0
+  let accountNumber: string
+  do {
+    accountNumber = Math.random().toString().slice(2, 12).padStart(10, "0")
+  } while (accountNumber[0] === "0")
+
+  return accountNumber
 }
 
 export function generateRoutingNumber(): string {
