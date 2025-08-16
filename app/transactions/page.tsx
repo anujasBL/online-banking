@@ -14,22 +14,22 @@ export default async function TransactionsPage() {
 
   // Get user's bank accounts for filtering
   const bankAccounts = await prisma.bankAccount.findMany({
-    where: { 
+    where: {
       userId: session.user.id,
-      isActive: true 
+      isActive: true,
     },
     select: {
       id: true,
       accountType: true,
       accountNumber: true,
     },
-    orderBy: { createdAt: 'asc' }
+    orderBy: { createdAt: "asc" },
   })
 
   return (
     <div className="min-h-screen bg-background">
       <DashboardHeader />
-      
+
       <main className="container mx-auto py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold tracking-tight mb-2">

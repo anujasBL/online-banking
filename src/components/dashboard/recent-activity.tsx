@@ -5,7 +5,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { formatCurrency } from "@/lib/utils"
 import { ArrowDownLeft, ArrowUpRight, ArrowRight, Loader2 } from "lucide-react"
-import { useRecentTransactions, getTransactionAmount, getTransactionDirection, getTransactionCounterparty } from "@/src/hooks/use-transactions"
+import {
+  useRecentTransactions,
+  getTransactionAmount,
+  getTransactionDirection,
+  getTransactionCounterparty,
+} from "@/src/hooks/use-transactions"
 
 interface RecentActivityProps {
   accountId?: string
@@ -48,9 +53,18 @@ export function RecentActivity({ accountId }: RecentActivityProps) {
           {data?.transactions && data.transactions.length > 0 && (
             <>
               {data.transactions.map((transaction) => {
-                const amount = getTransactionAmount(transaction, accountId || '')
-                const direction = getTransactionDirection(transaction, accountId || '')
-                const counterparty = getTransactionCounterparty(transaction, accountId || '')
+                const amount = getTransactionAmount(
+                  transaction,
+                  accountId || ""
+                )
+                const direction = getTransactionDirection(
+                  transaction,
+                  accountId || ""
+                )
+                const counterparty = getTransactionCounterparty(
+                  transaction,
+                  accountId || ""
+                )
                 const isPositive = amount > 0
 
                 return (
@@ -89,7 +103,7 @@ export function RecentActivity({ accountId }: RecentActivityProps) {
                   </div>
                 )
               })}
-              
+
               <div className="pt-2">
                 <Link href="/transactions">
                   <Button variant="outline" size="sm" className="w-full">

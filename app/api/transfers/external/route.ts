@@ -1,42 +1,39 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/lib/auth'
-import { externalTransferSchema } from '@/src/lib/validations/transfer'
-import { processExternalTransfer } from '@/src/lib/services/transfer'
-import { prisma } from '@/lib/prisma'
+import { NextRequest, NextResponse } from "next/server"
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/lib/auth"
+import { externalTransferSchema } from "@/src/lib/validations/transfer"
+import { processExternalTransfer } from "@/src/lib/services/transfer"
+import { prisma } from "@/lib/prisma"
 
 export async function POST(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
-    
+
     if (!session?.user?.id) {
-      return NextResponse.json(
-        { error: 'Unauthorized' },
-        { status: 401 }
-      )
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
     const body = await request.json()
-    
+
     // Validate request data
     const validationResult = externalTransferSchema.safeParse(body)
     if (!validationResult.success) {
       return NextResponse.json(
-        { 
-          error: 'Invalid request data',
-          details: validationResult.error.errors
+        {
+          error: "Invalid request data",
+          details: validationResult.error.errors,
         },
         { status: 400 }
       )
     }
 
-    const { 
-      senderAccountId, 
-      amount, 
+    const {
+      senderAccountId,
+      amount,
       externalAccountNumber,
       externalRoutingNumber,
       externalBankName,
-      description 
+      description,
     } = validationResult.data
 
     // Verify sender account belongs to the user
@@ -44,13 +41,13 @@ export async function POST(request: NextRequest) {
       where: {
         id: senderAccountId,
         userId: session.user.id,
-        isActive: true
-      }
+        isActive: true,
+      },
     })
 
     if (!senderAccount) {
       return NextResponse.json(
-        { error: 'Sender account not found or not accessible' },
+        { error: "Sender account not found or not accessible" },
         { status: 403 }
       )
     }
@@ -62,27 +59,23 @@ export async function POST(request: NextRequest) {
       externalAccountNumber,
       externalRoutingNumber,
       externalBankName,
-      description
+      description,
     })
 
     if (!result.success) {
-      return NextResponse.json(
-        { error: result.error },
-        { status: 400 }
-      )
+      return NextResponse.json({ error: result.error }, { status: 400 })
     }
 
     return NextResponse.json({
       success: true,
       transactionId: result.transactionId,
       reference: result.reference,
-      message: 'External transfer initiated successfully'
+      message: "External transfer initiated successfully",
     })
-
   } catch (error) {
-    console.error('External transfer API error:', error)
+    console.error("External transfer API error:", error)
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: "Internal server error" },
       { status: 500 }
     )
   }

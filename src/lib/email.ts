@@ -1,4 +1,4 @@
-import sgMail from '@sendgrid/mail'
+import sgMail from "@sendgrid/mail"
 
 // Initialize SendGrid
 if (process.env.SENDGRID_API_KEY) {
@@ -28,7 +28,7 @@ export interface TransactionEmailData {
  */
 export async function sendEmail(data: EmailData): Promise<boolean> {
   if (!process.env.SENDGRID_API_KEY) {
-    console.warn('SendGrid API key not configured. Email not sent.')
+    console.warn("SendGrid API key not configured. Email not sent.")
     return false
   }
 
@@ -36,18 +36,18 @@ export async function sendEmail(data: EmailData): Promise<boolean> {
     const msg = {
       to: data.to,
       from: {
-        email: process.env.SENDGRID_FROM_EMAIL || 'noreply@obs.com',
-        name: process.env.SENDGRID_FROM_NAME || 'Online Banking System'
+        email: process.env.SENDGRID_FROM_EMAIL || "noreply@obs.com",
+        name: process.env.SENDGRID_FROM_NAME || "Online Banking System",
       },
       subject: data.subject,
-      text: data.text || data.html.replace(/<[^>]*>/g, ''), // Strip HTML for text version
+      text: data.text || data.html.replace(/<[^>]*>/g, ""), // Strip HTML for text version
       html: data.html,
     }
 
     await sgMail.send(msg)
     return true
   } catch (error) {
-    console.error('Failed to send email:', error)
+    console.error("Failed to send email:", error)
     return false
   }
 }
@@ -55,9 +55,11 @@ export async function sendEmail(data: EmailData): Promise<boolean> {
 /**
  * Send transaction confirmation email
  */
-export async function sendTransactionConfirmation(data: TransactionEmailData): Promise<boolean> {
+export async function sendTransactionConfirmation(
+  data: TransactionEmailData
+): Promise<boolean> {
   const subject = `Transaction Confirmation - ${data.transactionType}`
-  
+
   const html = `
     <!DOCTYPE html>
     <html>
@@ -94,7 +96,7 @@ export async function sendTransactionConfirmation(data: TransactionEmailData): P
             <p><strong>Account:</strong> ****${data.accountNumber.slice(-4)}</p>
             <p><strong>Reference:</strong> ${data.reference}</p>
             <p><strong>Date:</strong> ${data.date}</p>
-            ${data.balance !== undefined ? `<p><strong>Remaining Balance:</strong> $${data.balance.toFixed(2)}</p>` : ''}
+            ${data.balance !== undefined ? `<p><strong>Remaining Balance:</strong> $${data.balance.toFixed(2)}</p>` : ""}
           </div>
           
           <p>If you have any questions about this transaction, please contact our customer service.</p>
@@ -114,19 +116,21 @@ export async function sendTransactionConfirmation(data: TransactionEmailData): P
   return sendEmail({
     to: data.to,
     subject,
-    html
+    html,
   })
 }
 
 /**
  * Send transfer notification email
  */
-export async function sendTransferNotification(data: TransactionEmailData & { 
-  recipientAccount?: string 
-  recipientName?: string 
-}): Promise<boolean> {
+export async function sendTransferNotification(
+  data: TransactionEmailData & {
+    recipientAccount?: string
+    recipientName?: string
+  }
+): Promise<boolean> {
   const subject = `Transfer Confirmation - $${data.amount.toFixed(2)}`
-  
+
   const html = `
     <!DOCTYPE html>
     <html>
@@ -160,11 +164,11 @@ export async function sendTransferNotification(data: TransactionEmailData & {
             <h3>Transfer Details</h3>
             <p><strong>Amount:</strong> <span class="amount">$${data.amount.toFixed(2)}</span></p>
             <p><strong>From Account:</strong> ****${data.accountNumber.slice(-4)}</p>
-            ${data.recipientAccount ? `<p><strong>To Account:</strong> ****${data.recipientAccount.slice(-4)}</p>` : ''}
-            ${data.recipientName ? `<p><strong>Recipient:</strong> ${data.recipientName}</p>` : ''}
+            ${data.recipientAccount ? `<p><strong>To Account:</strong> ****${data.recipientAccount.slice(-4)}</p>` : ""}
+            ${data.recipientName ? `<p><strong>Recipient:</strong> ${data.recipientName}</p>` : ""}
             <p><strong>Reference:</strong> ${data.reference}</p>
             <p><strong>Date:</strong> ${data.date}</p>
-            ${data.balance !== undefined ? `<p><strong>Remaining Balance:</strong> $${data.balance.toFixed(2)}</p>` : ''}
+            ${data.balance !== undefined ? `<p><strong>Remaining Balance:</strong> $${data.balance.toFixed(2)}</p>` : ""}
           </div>
           
           <p>Your transfer is being processed and should be available in the recipient account within 1-2 business days.</p>
@@ -184,6 +188,6 @@ export async function sendTransferNotification(data: TransactionEmailData & {
   return sendEmail({
     to: data.to,
     subject,
-    html
+    html,
   })
 }

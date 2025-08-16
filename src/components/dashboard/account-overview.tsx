@@ -16,9 +16,16 @@ interface AccountOverviewProps {
 }
 
 export function AccountOverview({ accounts }: AccountOverviewProps) {
-  const totalBalance = accounts.reduce((sum, account) => sum + account.balance, 0)
-  const checkingAccounts = accounts.filter(acc => acc.accountType === "CHECKING")
-  const savingsAccounts = accounts.filter(acc => acc.accountType === "SAVINGS")
+  const totalBalance = accounts.reduce(
+    (sum, account) => sum + account.balance,
+    0
+  )
+  const checkingAccounts = accounts.filter(
+    (acc) => acc.accountType === "CHECKING"
+  )
+  const savingsAccounts = accounts.filter(
+    (acc) => acc.accountType === "SAVINGS"
+  )
 
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -28,9 +35,11 @@ export function AccountOverview({ accounts }: AccountOverviewProps) {
           <Wallet className="h-4 w-4 text-muted-foreground" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">{formatCurrency(totalBalance)}</div>
+          <div className="text-2xl font-bold">
+            {formatCurrency(totalBalance)}
+          </div>
           <p className="text-xs text-muted-foreground">
-            Across {accounts.length} account{accounts.length !== 1 ? 's' : ''}
+            Across {accounts.length} account{accounts.length !== 1 ? "s" : ""}
           </p>
         </CardContent>
       </Card>
@@ -47,7 +56,8 @@ export function AccountOverview({ accounts }: AccountOverviewProps) {
             )}
           </div>
           <p className="text-xs text-muted-foreground">
-            {checkingAccounts.length} checking account{checkingAccounts.length !== 1 ? 's' : ''}
+            {checkingAccounts.length} checking account
+            {checkingAccounts.length !== 1 ? "s" : ""}
           </p>
         </CardContent>
       </Card>
@@ -64,7 +74,8 @@ export function AccountOverview({ accounts }: AccountOverviewProps) {
             )}
           </div>
           <p className="text-xs text-muted-foreground">
-            {savingsAccounts.length} savings account{savingsAccounts.length !== 1 ? 's' : ''}
+            {savingsAccounts.length} savings account
+            {savingsAccounts.length !== 1 ? "s" : ""}
           </p>
         </CardContent>
       </Card>
@@ -73,8 +84,9 @@ export function AccountOverview({ accounts }: AccountOverviewProps) {
         <Card key={account.id} className="md:col-span-2 lg:col-span-1">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
-              {account.accountType.toLowerCase().charAt(0).toUpperCase() + 
-               account.accountType.toLowerCase().slice(1)} Account
+              {account.accountType.toLowerCase().charAt(0).toUpperCase() +
+                account.accountType.toLowerCase().slice(1)}{" "}
+              Account
             </CardTitle>
             <div className="text-xs text-muted-foreground">
               ••••{account.accountNumber.slice(-4)}

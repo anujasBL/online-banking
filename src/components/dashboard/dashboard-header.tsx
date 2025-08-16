@@ -23,10 +23,10 @@ export function DashboardHeader() {
         <div className="flex items-center space-x-4">
           <h1 className="text-xl font-bold">Online Banking System</h1>
         </div>
-        
+
         <div className="flex items-center space-x-4">
           <ThemeToggle />
-          
+
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="relative h-8 w-8 rounded-full">

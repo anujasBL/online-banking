@@ -1,18 +1,18 @@
-import '@testing-library/jest-dom'
-import { jest } from '@jest/globals'
+import "@testing-library/jest-dom"
+import { jest } from "@jest/globals"
 
 // Mock Next.js router
-jest.mock('next/router', () => require('next-router-mock'))
+jest.mock("next/router", () => require("next-router-mock"))
 
 // Mock NextAuth
-jest.mock('next-auth', () => ({
+jest.mock("next-auth", () => ({
   default: jest.fn(),
 }))
 
-jest.mock('next-auth/react', () => ({
+jest.mock("next-auth/react", () => ({
   useSession: jest.fn(() => ({
     data: null,
-    status: 'unauthenticated',
+    status: "unauthenticated",
     update: jest.fn(),
   })),
   signIn: jest.fn(),
@@ -21,7 +21,7 @@ jest.mock('next-auth/react', () => ({
 }))
 
 // Mock Next.js navigation
-jest.mock('next/navigation', () => ({
+jest.mock("next/navigation", () => ({
   useRouter: () => ({
     push: jest.fn(),
     replace: jest.fn(),
@@ -31,12 +31,12 @@ jest.mock('next/navigation', () => ({
     refresh: jest.fn(),
   }),
   useSearchParams: () => new URLSearchParams(),
-  usePathname: () => '/',
+  usePathname: () => "/",
   redirect: jest.fn(),
 }))
 
 // Mock Prisma - Use relative path that works with Jest
-jest.mock('./src/lib/prisma', () => ({
+jest.mock("./src/lib/prisma", () => ({
   prisma: {
     user: {
       findUnique: jest.fn(),
@@ -77,8 +77,8 @@ jest.mock('./src/lib/prisma', () => ({
 global.fetch = jest.fn()
 
 // Mock environment variables
-process.env.NEXTAUTH_SECRET = 'test-secret'
-process.env.NEXTAUTH_URL = 'http://localhost:3000'
-process.env.DATABASE_URL = 'postgresql://test:test@localhost:5432/test'
-process.env.GOOGLE_CLIENT_ID = 'test-google-client-id'
-process.env.GOOGLE_CLIENT_SECRET = 'test-google-client-secret'
+process.env.NEXTAUTH_SECRET = "test-secret"
+process.env.NEXTAUTH_URL = "http://localhost:3000"
+process.env.DATABASE_URL = "postgresql://test:test@localhost:5432/test"
+process.env.GOOGLE_CLIENT_ID = "test-google-client-id"
+process.env.GOOGLE_CLIENT_SECRET = "test-google-client-secret"

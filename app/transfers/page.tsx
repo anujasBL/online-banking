@@ -14,9 +14,9 @@ export default async function TransfersPage() {
 
   // Get user's bank accounts
   const bankAccounts = await prisma.bankAccount.findMany({
-    where: { 
+    where: {
       userId: session.user.id,
-      isActive: true 
+      isActive: true,
     },
     select: {
       id: true,
@@ -24,19 +24,19 @@ export default async function TransfersPage() {
       balance: true,
       accountNumber: true,
     },
-    orderBy: { createdAt: 'asc' }
+    orderBy: { createdAt: "asc" },
   })
 
   // Convert Decimal to number for display
-  const accounts = bankAccounts.map(account => ({
+  const accounts = bankAccounts.map((account) => ({
     ...account,
-    balance: Number(account.balance.toString())
+    balance: Number(account.balance.toString()),
   }))
 
   return (
     <div className="min-h-screen bg-background">
       <DashboardHeader />
-      
+
       <main className="container mx-auto py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold tracking-tight mb-2">
@@ -48,9 +48,7 @@ export default async function TransfersPage() {
         </div>
 
         <div className="flex justify-center">
-          <TransferForm 
-            accounts={accounts}
-          />
+          <TransferForm accounts={accounts} />
         </div>
       </main>
     </div>

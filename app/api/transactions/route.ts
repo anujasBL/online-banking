@@ -1,43 +1,46 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/lib/auth'
-import { transactionFiltersSchema } from '@/src/lib/validations/transfer'
-import { getTransactionHistory } from '@/src/lib/services/transfer'
-import { prisma } from '@/lib/prisma'
-import { TransactionType, TransactionStatus } from '@prisma/client'
+import { NextRequest, NextResponse } from "next/server"
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/lib/auth"
+import { transactionFiltersSchema } from "@/src/lib/validations/transfer"
+import { getTransactionHistory } from "@/src/lib/services/transfer"
+import { prisma } from "@/lib/prisma"
+import { TransactionType, TransactionStatus } from "@prisma/client"
 
 export async function GET(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
-    
+
     if (!session?.user?.id) {
-      return NextResponse.json(
-        { error: 'Unauthorized' },
-        { status: 401 }
-      )
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
     const { searchParams } = new URL(request.url)
-    
+
     // Parse and validate query parameters
     const filters = {
-      accountId: searchParams.get('accountId') || undefined,
-      type: searchParams.get('type') as TransactionType || undefined,
-      status: searchParams.get('status') as TransactionStatus || undefined,
-      startDate: searchParams.get('startDate') || undefined,
-      endDate: searchParams.get('endDate') || undefined,
-      minAmount: searchParams.get('minAmount') ? parseFloat(searchParams.get('minAmount')!) : undefined,
-      maxAmount: searchParams.get('maxAmount') ? parseFloat(searchParams.get('maxAmount')!) : undefined,
-      page: searchParams.get('page') ? parseInt(searchParams.get('page')!) : 1,
-      limit: searchParams.get('limit') ? parseInt(searchParams.get('limit')!) : 20
+      accountId: searchParams.get("accountId") || undefined,
+      type: (searchParams.get("type") as TransactionType) || undefined,
+      status: (searchParams.get("status") as TransactionStatus) || undefined,
+      startDate: searchParams.get("startDate") || undefined,
+      endDate: searchParams.get("endDate") || undefined,
+      minAmount: searchParams.get("minAmount")
+        ? parseFloat(searchParams.get("minAmount")!)
+        : undefined,
+      maxAmount: searchParams.get("maxAmount")
+        ? parseFloat(searchParams.get("maxAmount")!)
+        : undefined,
+      page: searchParams.get("page") ? parseInt(searchParams.get("page")!) : 1,
+      limit: searchParams.get("limit")
+        ? parseInt(searchParams.get("limit")!)
+        : 20,
     }
 
     const validationResult = transactionFiltersSchema.safeParse(filters)
     if (!validationResult.success) {
       return NextResponse.json(
-        { 
-          error: 'Invalid query parameters',
-          details: validationResult.error.errors
+        {
+          error: "Invalid query parameters",
+          details: validationResult.error.errors,
         },
         { status: 400 }
       )
@@ -50,13 +53,13 @@ export async function GET(request: NextRequest) {
       const account = await prisma.bankAccount.findFirst({
         where: {
           id: validatedFilters.accountId,
-          userId: session.user.id
-        }
+          userId: session.user.id,
+        },
       })
 
       if (!account) {
         return NextResponse.json(
-          { error: 'Account not found or not accessible' },
+          { error: "Account not found or not accessible" },
           { status: 403 }
         )
       }
@@ -69,8 +72,12 @@ export async function GET(request: NextRequest) {
         {
           type: validatedFilters.type,
           status: validatedFilters.status,
-          startDate: validatedFilters.startDate ? new Date(validatedFilters.startDate) : undefined,
-          endDate: validatedFilters.endDate ? new Date(validatedFilters.endDate) : undefined
+          startDate: validatedFilters.startDate
+            ? new Date(validatedFilters.startDate)
+            : undefined,
+          endDate: validatedFilters.endDate
+            ? new Date(validatedFilters.endDate)
+            : undefined,
         }
       )
 
@@ -79,21 +86,21 @@ export async function GET(request: NextRequest) {
       // Get transactions for all user accounts
       const userAccounts = await prisma.bankAccount.findMany({
         where: {
-          userId: session.user.id
+          userId: session.user.id,
         },
         select: {
-          id: true
-        }
+          id: true,
+        },
       })
 
-      const accountIds = userAccounts.map(account => account.id)
-      
+      const accountIds = userAccounts.map((account) => account.id)
+
       if (accountIds.length === 0) {
         return NextResponse.json({
           transactions: [],
           totalCount: 0,
           currentPage: validatedFilters.page,
-          totalPages: 0
+          totalPages: 0,
         })
       }
 
@@ -103,18 +110,23 @@ export async function GET(request: NextRequest) {
       const where = {
         OR: [
           { senderAccountId: { in: accountIds } },
-          { receiverAccountId: { in: accountIds } }
+          { receiverAccountId: { in: accountIds } },
         ],
         ...(validatedFilters.type && { type: validatedFilters.type }),
         ...(validatedFilters.status && { status: validatedFilters.status }),
-        ...(validatedFilters.startDate && validatedFilters.endDate && {
-          createdAt: {
-            gte: new Date(validatedFilters.startDate),
-            lte: new Date(validatedFilters.endDate)
-          }
+        ...(validatedFilters.startDate &&
+          validatedFilters.endDate && {
+            createdAt: {
+              gte: new Date(validatedFilters.startDate),
+              lte: new Date(validatedFilters.endDate),
+            },
+          }),
+        ...(validatedFilters.minAmount && {
+          amount: { gte: validatedFilters.minAmount },
         }),
-        ...(validatedFilters.minAmount && { amount: { gte: validatedFilters.minAmount } }),
-        ...(validatedFilters.maxAmount && { amount: { lte: validatedFilters.maxAmount } })
+        ...(validatedFilters.maxAmount && {
+          amount: { lte: validatedFilters.maxAmount },
+        }),
       }
 
       const [transactions, totalCount] = await Promise.all([
@@ -129,10 +141,10 @@ export async function GET(request: NextRequest) {
                 user: {
                   select: {
                     name: true,
-                    email: true
-                  }
-                }
-              }
+                    email: true,
+                  },
+                },
+              },
             },
             receiverAccount: {
               select: {
@@ -142,31 +154,30 @@ export async function GET(request: NextRequest) {
                 user: {
                   select: {
                     name: true,
-                    email: true
-                  }
-                }
-              }
-            }
+                    email: true,
+                  },
+                },
+              },
+            },
           },
-          orderBy: { createdAt: 'desc' },
+          orderBy: { createdAt: "desc" },
           skip,
-          take: validatedFilters.limit
+          take: validatedFilters.limit,
         }),
-        prisma.transaction.count({ where })
+        prisma.transaction.count({ where }),
       ])
 
       return NextResponse.json({
         transactions,
         totalCount,
         currentPage: validatedFilters.page,
-        totalPages: Math.ceil(totalCount / validatedFilters.limit)
+        totalPages: Math.ceil(totalCount / validatedFilters.limit),
       })
     }
-
   } catch (error) {
-    console.error('Transactions API error:', error)
+    console.error("Transactions API error:", error)
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: "Internal server error" },
       { status: 500 }
     )
   }

@@ -1,13 +1,16 @@
-import { prisma } from '@/lib/prisma'
-import { sendTransferNotification, sendTransactionConfirmation } from '@/src/lib/email'
-import { 
-  InternalTransferInput, 
-  ExternalTransferInput, 
+import { prisma } from "@/lib/prisma"
+import {
+  sendTransferNotification,
+  sendTransactionConfirmation,
+} from "@/src/lib/email"
+import {
+  InternalTransferInput,
+  ExternalTransferInput,
   validateTransferAmount,
   calculateTransferFee,
-  generateTransactionReference
-} from '@/src/lib/validations/transfer'
-import { TransactionType, TransactionStatus } from '@prisma/client'
+  generateTransactionReference,
+} from "@/src/lib/validations/transfer"
+import { TransactionType, TransactionStatus } from "@prisma/client"
 
 export interface TransferResult {
   success: boolean
@@ -53,47 +56,49 @@ export interface TransactionWithDetails {
 /**
  * Process internal transfer between accounts within the system
  */
-export async function processInternalTransfer(data: InternalTransferInput): Promise<TransferResult> {
+export async function processInternalTransfer(
+  data: InternalTransferInput
+): Promise<TransferResult> {
   try {
     // Start transaction
     const result = await prisma.$transaction(async (tx) => {
       // Get sender account with lock
       const senderAccount = await tx.bankAccount.findUnique({
         where: { id: data.senderAccountId },
-        include: { user: true }
+        include: { user: true },
       })
 
       if (!senderAccount) {
-        throw new Error('Sender account not found')
+        throw new Error("Sender account not found")
       }
 
       if (!senderAccount.isActive) {
-        throw new Error('Sender account is inactive')
+        throw new Error("Sender account is inactive")
       }
 
       // Get receiver account
       const receiverAccount = await tx.bankAccount.findUnique({
         where: { id: data.receiverAccountId },
-        include: { user: true }
+        include: { user: true },
       })
 
       if (!receiverAccount) {
-        throw new Error('Receiver account not found')
+        throw new Error("Receiver account not found")
       }
 
       if (!receiverAccount.isActive) {
-        throw new Error('Receiver account is inactive')
+        throw new Error("Receiver account is inactive")
       }
 
       // Validate same account transfer
       if (data.senderAccountId === data.receiverAccountId) {
-        throw new Error('Cannot transfer to the same account')
+        throw new Error("Cannot transfer to the same account")
       }
 
       // Validate balance
       const senderBalance = Number(senderAccount.balance)
       if (!validateTransferAmount(senderBalance, data.amount)) {
-        throw new Error('Insufficient funds')
+        throw new Error("Insufficient funds")
       }
 
       // Generate transaction reference
@@ -103,47 +108,49 @@ export async function processInternalTransfer(data: InternalTransferInput): Prom
       const transaction = await tx.transaction.create({
         data: {
           amount: data.amount,
-          description: data.description || `Transfer to ${receiverAccount.accountNumber.slice(-4)}`,
+          description:
+            data.description ||
+            `Transfer to ${receiverAccount.accountNumber.slice(-4)}`,
           type: TransactionType.INTERNAL_TRANSFER,
           status: TransactionStatus.PROCESSING,
           reference,
           senderAccountId: data.senderAccountId,
           receiverAccountId: data.receiverAccountId,
           processingFee: 0, // No fee for internal transfers
-        }
+        },
       })
 
       // Update account balances
       await tx.bankAccount.update({
         where: { id: data.senderAccountId },
-        data: { 
+        data: {
           balance: { decrement: data.amount },
-          updatedAt: new Date()
-        }
+          updatedAt: new Date(),
+        },
       })
 
       await tx.bankAccount.update({
         where: { id: data.receiverAccountId },
-        data: { 
+        data: {
           balance: { increment: data.amount },
-          updatedAt: new Date()
-        }
+          updatedAt: new Date(),
+        },
       })
 
       // Complete transaction
       await tx.transaction.update({
         where: { id: transaction.id },
-        data: { 
+        data: {
           status: TransactionStatus.COMPLETED,
-          processedAt: new Date()
-        }
+          processedAt: new Date(),
+        },
       })
 
       return {
         transaction,
         senderAccount,
         receiverAccount,
-        newSenderBalance: senderBalance - data.amount
+        newSenderBalance: senderBalance - data.amount,
       }
     })
 
@@ -152,43 +159,42 @@ export async function processInternalTransfer(data: InternalTransferInput): Prom
       // Notification to sender
       await sendTransferNotification({
         to: result.senderAccount.user.email,
-        userName: result.senderAccount.user.name || 'Customer',
-        transactionType: 'Internal Transfer',
+        userName: result.senderAccount.user.name || "Customer",
+        transactionType: "Internal Transfer",
         amount: data.amount,
         accountNumber: result.senderAccount.accountNumber,
         reference: result.transaction.reference,
         date: new Date().toLocaleDateString(),
         balance: result.newSenderBalance,
         recipientAccount: result.receiverAccount.accountNumber,
-        recipientName: result.receiverAccount.user.name || 'Customer'
+        recipientName: result.receiverAccount.user.name || "Customer",
       })
 
       // Notification to receiver
       await sendTransactionConfirmation({
         to: result.receiverAccount.user.email,
-        userName: result.receiverAccount.user.name || 'Customer',
-        transactionType: 'Incoming Transfer',
+        userName: result.receiverAccount.user.name || "Customer",
+        transactionType: "Incoming Transfer",
         amount: data.amount,
         accountNumber: result.receiverAccount.accountNumber,
         reference: result.transaction.reference,
-        date: new Date().toLocaleDateString()
+        date: new Date().toLocaleDateString(),
       })
     } catch (emailError) {
-      console.error('Failed to send transfer notifications:', emailError)
+      console.error("Failed to send transfer notifications:", emailError)
       // Don't fail the transfer if email fails
     }
 
     return {
       success: true,
       transactionId: result.transaction.id,
-      reference: result.transaction.reference
+      reference: result.transaction.reference,
     }
-
   } catch (error) {
-    console.error('Internal transfer failed:', error)
+    console.error("Internal transfer failed:", error)
     return {
       success: false,
-      error: error instanceof Error ? error.message : 'Transfer failed'
+      error: error instanceof Error ? error.message : "Transfer failed",
     }
   }
 }
@@ -196,22 +202,24 @@ export async function processInternalTransfer(data: InternalTransferInput): Prom
 /**
  * Process external transfer to accounts outside the system
  */
-export async function processExternalTransfer(data: ExternalTransferInput): Promise<TransferResult> {
+export async function processExternalTransfer(
+  data: ExternalTransferInput
+): Promise<TransferResult> {
   try {
     // Start transaction
     const result = await prisma.$transaction(async (tx) => {
       // Get sender account with lock
       const senderAccount = await tx.bankAccount.findUnique({
         where: { id: data.senderAccountId },
-        include: { user: true }
+        include: { user: true },
       })
 
       if (!senderAccount) {
-        throw new Error('Sender account not found')
+        throw new Error("Sender account not found")
       }
 
       if (!senderAccount.isActive) {
-        throw new Error('Sender account is inactive')
+        throw new Error("Sender account is inactive")
       }
 
       // Calculate fee
@@ -221,7 +229,9 @@ export async function processExternalTransfer(data: ExternalTransferInput): Prom
       // Validate balance including fee
       const senderBalance = Number(senderAccount.balance)
       if (!validateTransferAmount(senderBalance, data.amount, fee)) {
-        throw new Error(`Insufficient funds. Required: $${totalAmount.toFixed(2)} (including $${fee.toFixed(2)} fee)`)
+        throw new Error(
+          `Insufficient funds. Required: $${totalAmount.toFixed(2)} (including $${fee.toFixed(2)} fee)`
+        )
       }
 
       // Generate transaction reference
@@ -231,7 +241,8 @@ export async function processExternalTransfer(data: ExternalTransferInput): Prom
       const transaction = await tx.transaction.create({
         data: {
           amount: data.amount,
-          description: data.description || `External transfer to ${data.externalBankName}`,
+          description:
+            data.description || `External transfer to ${data.externalBankName}`,
           type: TransactionType.EXTERNAL_TRANSFER,
           status: TransactionStatus.PENDING, // External transfers start as pending
           reference,
@@ -242,25 +253,25 @@ export async function processExternalTransfer(data: ExternalTransferInput): Prom
           processingFee: fee,
           metadata: {
             externalTransfer: true,
-            estimatedCompletionDays: '1-2'
-          }
-        }
+            estimatedCompletionDays: "1-2",
+          },
+        },
       })
 
       // Deduct amount and fee from sender account
       await tx.bankAccount.update({
         where: { id: data.senderAccountId },
-        data: { 
+        data: {
           balance: { decrement: totalAmount },
-          updatedAt: new Date()
-        }
+          updatedAt: new Date(),
+        },
       })
 
       return {
         transaction,
         senderAccount,
         newSenderBalance: senderBalance - totalAmount,
-        fee
+        fee,
       }
     })
 
@@ -268,30 +279,32 @@ export async function processExternalTransfer(data: ExternalTransferInput): Prom
     try {
       await sendTransferNotification({
         to: result.senderAccount.user.email,
-        userName: result.senderAccount.user.name || 'Customer',
-        transactionType: 'External Transfer',
+        userName: result.senderAccount.user.name || "Customer",
+        transactionType: "External Transfer",
         amount: data.amount,
         accountNumber: result.senderAccount.accountNumber,
         reference: result.transaction.reference,
         date: new Date().toLocaleDateString(),
-        balance: result.newSenderBalance
+        balance: result.newSenderBalance,
       })
     } catch (emailError) {
-      console.error('Failed to send external transfer notification:', emailError)
+      console.error(
+        "Failed to send external transfer notification:",
+        emailError
+      )
       // Don't fail the transfer if email fails
     }
 
     return {
       success: true,
       transactionId: result.transaction.id,
-      reference: result.transaction.reference
+      reference: result.transaction.reference,
     }
-
   } catch (error) {
-    console.error('External transfer failed:', error)
+    console.error("External transfer failed:", error)
     return {
       success: false,
-      error: error instanceof Error ? error.message : 'Transfer failed'
+      error: error instanceof Error ? error.message : "Transfer failed",
     }
   }
 }
@@ -318,18 +331,16 @@ export async function getTransactionHistory(
   const skip = (page - 1) * limit
 
   const where = {
-    OR: [
-      { senderAccountId: accountId },
-      { receiverAccountId: accountId }
-    ],
+    OR: [{ senderAccountId: accountId }, { receiverAccountId: accountId }],
     ...(filters?.type && { type: filters.type }),
     ...(filters?.status && { status: filters.status }),
-    ...(filters?.startDate && filters?.endDate && {
-      createdAt: {
-        gte: filters.startDate,
-        lte: filters.endDate
-      }
-    })
+    ...(filters?.startDate &&
+      filters?.endDate && {
+        createdAt: {
+          gte: filters.startDate,
+          lte: filters.endDate,
+        },
+      }),
   }
 
   const [transactions, totalCount] = await Promise.all([
@@ -344,10 +355,10 @@ export async function getTransactionHistory(
             user: {
               select: {
                 name: true,
-                email: true
-              }
-            }
-          }
+                email: true,
+              },
+            },
+          },
         },
         receiverAccount: {
           select: {
@@ -357,35 +368,37 @@ export async function getTransactionHistory(
             user: {
               select: {
                 name: true,
-                email: true
-              }
-            }
-          }
-        }
+                email: true,
+              },
+            },
+          },
+        },
       },
-      orderBy: { createdAt: 'desc' },
+      orderBy: { createdAt: "desc" },
       skip,
-      take: limit
+      take: limit,
     }),
-    prisma.transaction.count({ where })
+    prisma.transaction.count({ where }),
   ])
 
   return {
-    transactions: transactions.map(tx => ({
+    transactions: transactions.map((tx) => ({
       ...tx,
       amount: Number(tx.amount),
-      processingFee: tx.processingFee ? Number(tx.processingFee) : null
+      processingFee: tx.processingFee ? Number(tx.processingFee) : null,
     })) as TransactionWithDetails[],
     totalCount,
     currentPage: page,
-    totalPages: Math.ceil(totalCount / limit)
+    totalPages: Math.ceil(totalCount / limit),
   }
 }
 
 /**
  * Get transaction by reference
  */
-export async function getTransactionByReference(reference: string): Promise<TransactionWithDetails | null> {
+export async function getTransactionByReference(
+  reference: string
+): Promise<TransactionWithDetails | null> {
   const transaction = await prisma.transaction.findUnique({
     where: { reference },
     include: {
@@ -397,10 +410,10 @@ export async function getTransactionByReference(reference: string): Promise<Tran
           user: {
             select: {
               name: true,
-              email: true
-            }
-          }
-        }
+              email: true,
+            },
+          },
+        },
       },
       receiverAccount: {
         select: {
@@ -410,19 +423,21 @@ export async function getTransactionByReference(reference: string): Promise<Tran
           user: {
             select: {
               name: true,
-              email: true
-            }
-          }
-        }
-      }
-    }
+              email: true,
+            },
+          },
+        },
+      },
+    },
   })
 
   if (!transaction) return null
-  
+
   return {
     ...transaction,
     amount: Number(transaction.amount),
-    processingFee: transaction.processingFee ? Number(transaction.processingFee) : null
+    processingFee: transaction.processingFee
+      ? Number(transaction.processingFee)
+      : null,
   } as TransactionWithDetails
 }

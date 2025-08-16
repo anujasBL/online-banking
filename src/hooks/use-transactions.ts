@@ -1,5 +1,5 @@
-import { useQuery } from '@tanstack/react-query'
-import { TransactionType, TransactionStatus } from '@prisma/client'
+import { useQuery } from "@tanstack/react-query"
+import { TransactionType, TransactionStatus } from "@prisma/client"
 
 interface TransactionFilters {
   accountId?: string
@@ -59,7 +59,7 @@ interface TransactionResponse {
  */
 export function useTransactions(filters: TransactionFilters = {}) {
   const queryParams = new URLSearchParams()
-  
+
   Object.entries(filters).forEach(([key, value]) => {
     if (value !== undefined && value !== null) {
       queryParams.append(key, value.toString())
@@ -67,15 +67,17 @@ export function useTransactions(filters: TransactionFilters = {}) {
   })
 
   return useQuery<TransactionResponse>({
-    queryKey: ['transactions', filters],
+    queryKey: ["transactions", filters],
     queryFn: async () => {
-      const response = await fetch(`/api/transactions?${queryParams.toString()}`)
-      
+      const response = await fetch(
+        `/api/transactions?${queryParams.toString()}`
+      )
+
       if (!response.ok) {
         const errorData = await response.json()
-        throw new Error(errorData.error || 'Failed to fetch transactions')
+        throw new Error(errorData.error || "Failed to fetch transactions")
       }
-      
+
       return response.json()
     },
     staleTime: 2 * 60 * 1000, // 2 minutes
@@ -87,15 +89,15 @@ export function useTransactions(filters: TransactionFilters = {}) {
  */
 export function useTransaction(reference: string) {
   return useQuery<{ transaction: TransactionData }>({
-    queryKey: ['transaction', reference],
+    queryKey: ["transaction", reference],
     queryFn: async () => {
       const response = await fetch(`/api/transactions/${reference}`)
-      
+
       if (!response.ok) {
         const errorData = await response.json()
-        throw new Error(errorData.error || 'Failed to fetch transaction')
+        throw new Error(errorData.error || "Failed to fetch transaction")
       }
-      
+
       return response.json()
     },
     enabled: !!reference,
@@ -117,69 +119,78 @@ export function useRecentTransactions(accountId?: string, limit = 5) {
 /**
  * Helper to format transaction amount based on account perspective
  */
-export function getTransactionAmount(transaction: TransactionData, accountId: string) {
+export function getTransactionAmount(
+  transaction: TransactionData,
+  accountId: string
+) {
   const isSender = transaction.senderAccount?.id === accountId
   const isReceiver = transaction.receiverAccount?.id === accountId
-  
+
   if (isSender) {
     return -transaction.amount // Outgoing
   } else if (isReceiver) {
     return transaction.amount // Incoming
   }
-  
+
   return 0
 }
 
 /**
  * Helper to get transaction direction text
  */
-export function getTransactionDirection(transaction: TransactionData, accountId: string) {
+export function getTransactionDirection(
+  transaction: TransactionData,
+  accountId: string
+) {
   const isSender = transaction.senderAccount?.id === accountId
   const isReceiver = transaction.receiverAccount?.id === accountId
-  
+
   if (isSender) {
-    return 'Sent'
+    return "Sent"
   } else if (isReceiver) {
-    return 'Received'
+    return "Received"
   }
-  
-  return 'Unknown'
+
+  return "Unknown"
 }
 
 /**
  * Helper to get transaction counterparty
  */
-export function getTransactionCounterparty(transaction: TransactionData, accountId: string) {
+export function getTransactionCounterparty(
+  transaction: TransactionData,
+  accountId: string
+) {
   const isSender = transaction.senderAccount?.id === accountId
-  
+
   if (isSender) {
     // Show receiver info
     if (transaction.receiverAccount) {
       return {
-        name: transaction.receiverAccount.user.name || 'Unknown',
+        name: transaction.receiverAccount.user.name || "Unknown",
         account: `****${transaction.receiverAccount.accountNumber.slice(-4)}`,
-        isExternal: false
+        isExternal: false,
       }
     } else {
       return {
-        name: transaction.externalBankName || 'External Bank',
-        account: `****${transaction.externalAccountNumber?.slice(-4) || '0000'}`,
-        isExternal: true
+        name: transaction.externalBankName || "External Bank",
+        account: `****${transaction.externalAccountNumber?.slice(-4) || "0000"}`,
+        isExternal: true,
       }
     }
   } else {
     // Show sender info
     if (transaction.senderAccount) {
       return {
-        name: transaction.senderAccount.user.name || 'Unknown',
+        name: transaction.senderAccount.user.name || "Unknown",
         account: `****${transaction.senderAccount.accountNumber.slice(-4)}`,
-        isExternal: false
+        isExternal: false,
       }
     } else {
       return {
-        name: 'External Source',
-        account: 'External',
-        isExternal: true
+        name: "External Source",
+        account: "External",
+        isExternal: true,
       }
     }
   }

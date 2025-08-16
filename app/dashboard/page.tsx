@@ -13,7 +13,7 @@ async function createDefaultBankAccount(userId: string) {
     data: {
       userId,
       accountType: "CHECKING",
-      balance: 1000.00, // Starting balance for demo
+      balance: 1000.0, // Starting balance for demo
       accountNumber: generateAccountNumber(),
       routingNumber: generateRoutingNumber(),
     },
@@ -58,21 +58,21 @@ export default async function DashboardPage() {
     bankAccounts = [convertedAccount]
   } else {
     // Convert Decimal to number for display
-    bankAccounts = rawBankAccounts.map(account => ({
+    bankAccounts = rawBankAccounts.map((account) => ({
       ...account,
       accountType: account.accountType,
-      balance: Number(account.balance.toString())
+      balance: Number(account.balance.toString()),
     }))
   }
 
   return (
     <div className="min-h-screen bg-background">
       <DashboardHeader />
-      
+
       <main className="container mx-auto py-8">
         <div className="mb-8">
           <h2 className="text-3xl font-bold tracking-tight mb-2">
-            Welcome back, {session.user.name?.split(' ')[0]}!
+            Welcome back, {session.user.name?.split(" ")[0]}!
           </h2>
           <p className="text-muted-foreground">
             Here&apos;s an overview of your accounts and recent activity.
@@ -84,7 +84,7 @@ export default async function DashboardPage() {
             <AccountOverview accounts={bankAccounts} />
             <QuickActions />
           </div>
-          
+
           <div className="lg:col-span-1">
             <RecentActivity accountId={bankAccounts[0]?.id} />
           </div>

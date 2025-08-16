@@ -10,32 +10,37 @@ import { RecentActivity } from "@/components/dashboard/recent-activity"
 // Mock data for E2E testing
 const mockBankAccounts = [
   {
-    id: 'test-account-1',
-    accountType: 'CHECKING' as const,
-    balance: 1000.00,
-    accountNumber: '1234567890',
-  }
+    id: "test-account-1",
+    accountType: "CHECKING" as const,
+    balance: 1000.0,
+    accountNumber: "1234567890",
+  },
 ]
 
 // Mock session for testing
 const mockSession = {
   user: {
-    id: 'test-user-id',
-    name: 'Test User',
-    email: 'test@example.com',
-    role: 'USER'
+    id: "test-user-id",
+    name: "Test User",
+    email: "test@example.com",
+    role: "USER",
   },
-  expires: '2024-12-31'
+  expires: "2024-12-31",
 }
 
 // Test-only dashboard page that doesn't require authentication
 export default function TestDashboardPage() {
   return (
     <SessionProvider session={mockSession}>
-      <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
+      >
         <div className="min-h-screen bg-background">
           <DashboardHeader />
-          
+
           <main className="container mx-auto py-8">
             <div className="mb-8">
               <h2 className="text-3xl font-bold tracking-tight mb-2">
@@ -51,7 +56,7 @@ export default function TestDashboardPage() {
                 <AccountOverview accounts={mockBankAccounts} />
                 <QuickActions />
               </div>
-              
+
               <div className="lg:col-span-1">
                 <RecentActivity />
               </div>

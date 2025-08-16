@@ -1,15 +1,40 @@
-'use client'
+"use client"
 
-import React, { useState } from 'react'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Badge } from '@/components/ui/badge'
-import { Loader2, Search, Filter, ArrowUpRight, ArrowDownLeft, RefreshCw, Calendar } from 'lucide-react'
-import { useTransactions, getTransactionAmount, getTransactionDirection, getTransactionCounterparty } from '@/src/hooks/use-transactions'
-import { TransactionType, TransactionStatus } from '@prisma/client'
+import React, { useState } from "react"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { Badge } from "@/components/ui/badge"
+import {
+  Loader2,
+  Search,
+  Filter,
+  ArrowUpRight,
+  ArrowDownLeft,
+  RefreshCw,
+  Calendar,
+} from "lucide-react"
+import {
+  useTransactions,
+  getTransactionAmount,
+  getTransactionDirection,
+  getTransactionCounterparty,
+} from "@/src/hooks/use-transactions"
+import { TransactionType, TransactionStatus } from "@prisma/client"
 
 interface BankAccount {
   id: string
@@ -22,15 +47,18 @@ interface TransactionHistoryProps {
   selectedAccountId?: string
 }
 
-export function TransactionHistory({ accounts, selectedAccountId }: TransactionHistoryProps) {
+export function TransactionHistory({
+  accounts,
+  selectedAccountId,
+}: TransactionHistoryProps) {
   const [filters, setFilters] = useState({
-    accountId: selectedAccountId || '',
+    accountId: selectedAccountId || "",
     type: undefined as TransactionType | undefined,
     status: undefined as TransactionStatus | undefined,
-    startDate: '',
-    endDate: '',
+    startDate: "",
+    endDate: "",
     page: 1,
-    limit: 20
+    limit: 20,
   })
 
   const [showFilters, setShowFilters] = useState(false)
@@ -38,82 +66,82 @@ export function TransactionHistory({ accounts, selectedAccountId }: TransactionH
   const { data, isLoading, error, refetch } = useTransactions(filters)
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
     }).format(Math.abs(amount))
   }
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
     })
   }
 
   const getStatusBadgeVariant = (status: TransactionStatus) => {
     switch (status) {
-      case 'COMPLETED':
-        return 'default'
-      case 'PENDING':
-        return 'secondary'
-      case 'PROCESSING':
-        return 'secondary'
-      case 'FAILED':
-        return 'destructive'
-      case 'CANCELLED':
-        return 'outline'
+      case "COMPLETED":
+        return "default"
+      case "PENDING":
+        return "secondary"
+      case "PROCESSING":
+        return "secondary"
+      case "FAILED":
+        return "destructive"
+      case "CANCELLED":
+        return "outline"
       default:
-        return 'secondary'
+        return "secondary"
     }
   }
 
   const getTypeBadgeVariant = (type: TransactionType) => {
     switch (type) {
-      case 'INTERNAL_TRANSFER':
-        return 'default'
-      case 'EXTERNAL_TRANSFER':
-        return 'secondary'
-      case 'DEPOSIT':
-        return 'default'
-      case 'WITHDRAWAL':
-        return 'outline'
-      case 'FEE':
-        return 'destructive'
-      case 'INTEREST':
-        return 'default'
+      case "INTERNAL_TRANSFER":
+        return "default"
+      case "EXTERNAL_TRANSFER":
+        return "secondary"
+      case "DEPOSIT":
+        return "default"
+      case "WITHDRAWAL":
+        return "outline"
+      case "FEE":
+        return "destructive"
+      case "INTEREST":
+        return "default"
       default:
-        return 'secondary'
+        return "secondary"
     }
   }
 
   const handleFilterChange = (key: string, value: string) => {
-    setFilters(prev => ({
+    setFilters((prev) => ({
       ...prev,
-      [key]: value === '' ? undefined : value,
-      page: 1 // Reset to first page when filters change
+      [key]: value === "" ? undefined : value,
+      page: 1, // Reset to first page when filters change
     }))
   }
 
   const clearFilters = () => {
     setFilters({
-      accountId: selectedAccountId || '',
+      accountId: selectedAccountId || "",
       type: undefined,
       status: undefined,
-      startDate: '',
-      endDate: '',
+      startDate: "",
+      endDate: "",
       page: 1,
-      limit: 20
+      limit: 20,
     })
   }
 
   const loadMore = () => {
-    setFilters(prev => ({
+    setFilters((prev) => ({
       ...prev,
-      page: prev.page + 1
+      page: prev.page + 1,
     }))
   }
 
@@ -161,7 +189,9 @@ export function TransactionHistory({ accounts, selectedAccountId }: TransactionH
                 <Label htmlFor="account-filter">Account</Label>
                 <Select
                   value={filters.accountId}
-                  onValueChange={(value) => handleFilterChange('accountId', value)}
+                  onValueChange={(value) =>
+                    handleFilterChange("accountId", value)
+                  }
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="All accounts" />
@@ -170,7 +200,8 @@ export function TransactionHistory({ accounts, selectedAccountId }: TransactionH
                     <SelectItem value="">All accounts</SelectItem>
                     {accounts.map((account) => (
                       <SelectItem key={account.id} value={account.id}>
-                        {account.accountType} - ****{account.accountNumber.slice(-4)}
+                        {account.accountType} - ****
+                        {account.accountNumber.slice(-4)}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -181,15 +212,19 @@ export function TransactionHistory({ accounts, selectedAccountId }: TransactionH
                 <Label htmlFor="type-filter">Type</Label>
                 <Select
                   value={filters.type}
-                  onValueChange={(value) => handleFilterChange('type', value)}
+                  onValueChange={(value) => handleFilterChange("type", value)}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="All types" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="">All types</SelectItem>
-                    <SelectItem value="INTERNAL_TRANSFER">Internal Transfer</SelectItem>
-                    <SelectItem value="EXTERNAL_TRANSFER">External Transfer</SelectItem>
+                    <SelectItem value="INTERNAL_TRANSFER">
+                      Internal Transfer
+                    </SelectItem>
+                    <SelectItem value="EXTERNAL_TRANSFER">
+                      External Transfer
+                    </SelectItem>
                     <SelectItem value="DEPOSIT">Deposit</SelectItem>
                     <SelectItem value="WITHDRAWAL">Withdrawal</SelectItem>
                     <SelectItem value="FEE">Fee</SelectItem>
@@ -202,7 +237,7 @@ export function TransactionHistory({ accounts, selectedAccountId }: TransactionH
                 <Label htmlFor="status-filter">Status</Label>
                 <Select
                   value={filters.status}
-                  onValueChange={(value) => handleFilterChange('status', value)}
+                  onValueChange={(value) => handleFilterChange("status", value)}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="All statuses" />
@@ -226,7 +261,9 @@ export function TransactionHistory({ accounts, selectedAccountId }: TransactionH
                   id="start-date"
                   type="date"
                   value={filters.startDate}
-                  onChange={(e) => handleFilterChange('startDate', e.target.value)}
+                  onChange={(e) =>
+                    handleFilterChange("startDate", e.target.value)
+                  }
                 />
               </div>
 
@@ -236,7 +273,9 @@ export function TransactionHistory({ accounts, selectedAccountId }: TransactionH
                   id="end-date"
                   type="date"
                   value={filters.endDate}
-                  onChange={(e) => handleFilterChange('endDate', e.target.value)}
+                  onChange={(e) =>
+                    handleFilterChange("endDate", e.target.value)
+                  }
                 />
               </div>
             </div>
@@ -273,9 +312,18 @@ export function TransactionHistory({ accounts, selectedAccountId }: TransactionH
         {data && data.transactions.length > 0 && (
           <div className="space-y-4">
             {data.transactions.map((transaction) => {
-              const amount = getTransactionAmount(transaction, filters.accountId)
-              const direction = getTransactionDirection(transaction, filters.accountId)
-              const counterparty = getTransactionCounterparty(transaction, filters.accountId)
+              const amount = getTransactionAmount(
+                transaction,
+                filters.accountId
+              )
+              const direction = getTransactionDirection(
+                transaction,
+                filters.accountId
+              )
+              const counterparty = getTransactionCounterparty(
+                transaction,
+                filters.accountId
+              )
               const isPositive = amount > 0
 
               return (
@@ -298,28 +346,41 @@ export function TransactionHistory({ accounts, selectedAccountId }: TransactionH
                           {transaction.description || `${direction} Transfer`}
                         </p>
                         <Badge variant={getTypeBadgeVariant(transaction.type)}>
-                          {transaction.type.replace('_', ' ')}
+                          {transaction.type.replace("_", " ")}
                         </Badge>
-                        <Badge variant={getStatusBadgeVariant(transaction.status)}>
+                        <Badge
+                          variant={getStatusBadgeVariant(transaction.status)}
+                        >
                           {transaction.status}
                         </Badge>
                       </div>
                       <div className="text-sm text-muted-foreground">
-                        <p>{direction} • {counterparty.name} • {counterparty.account}</p>
-                        <p>Ref: {transaction.reference} • {formatDate(transaction.createdAt)}</p>
+                        <p>
+                          {direction} • {counterparty.name} •{" "}
+                          {counterparty.account}
+                        </p>
+                        <p>
+                          Ref: {transaction.reference} •{" "}
+                          {formatDate(transaction.createdAt)}
+                        </p>
                       </div>
                     </div>
                   </div>
 
                   <div className="text-right">
-                    <div className={`text-lg font-medium ${isPositive ? 'text-green-600' : 'text-red-600'}`}>
-                      {isPositive ? '+' : '-'}{formatCurrency(amount)}
+                    <div
+                      className={`text-lg font-medium ${isPositive ? "text-green-600" : "text-red-600"}`}
+                    >
+                      {isPositive ? "+" : "-"}
+                      {formatCurrency(amount)}
                     </div>
-                    {transaction.processingFee && Number(transaction.processingFee) > 0 && (
-                      <div className="text-sm text-muted-foreground">
-                        Fee: {formatCurrency(Number(transaction.processingFee))}
-                      </div>
-                    )}
+                    {transaction.processingFee &&
+                      Number(transaction.processingFee) > 0 && (
+                        <div className="text-sm text-muted-foreground">
+                          Fee:{" "}
+                          {formatCurrency(Number(transaction.processingFee))}
+                        </div>
+                      )}
                   </div>
                 </div>
               )
@@ -331,15 +392,17 @@ export function TransactionHistory({ accounts, selectedAccountId }: TransactionH
                   {isLoading ? (
                     <Loader2 className="h-4 w-4 animate-spin mr-2" />
                   ) : (
-                    'Load More'
+                    "Load More"
                   )}
                 </Button>
               </div>
             )}
 
             <div className="text-center text-sm text-muted-foreground pt-4">
-              Showing {data.transactions.length} of {data.totalCount} transactions
-              {data.totalPages > 1 && ` • Page ${data.currentPage} of ${data.totalPages}`}
+              Showing {data.transactions.length} of {data.totalCount}{" "}
+              transactions
+              {data.totalPages > 1 &&
+                ` • Page ${data.currentPage} of ${data.totalPages}`}
             </div>
           </div>
         )}

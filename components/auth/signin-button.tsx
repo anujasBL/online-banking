@@ -1,13 +1,13 @@
-'use client'
+"use client"
 
-import { signIn } from 'next-auth/react'
-import { Button } from '@/components/ui/button'
-import { Chrome } from 'lucide-react'
+import { signIn } from "next-auth/react"
+import { Button } from "@/components/ui/button"
+import { Chrome } from "lucide-react"
 
 export function SignInButton() {
   return (
     <Button
-      onClick={() => signIn('google', { callbackUrl: '/dashboard' })}
+      onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
       className="w-full"
       size="lg"
     >
@@ -16,4 +16,3 @@ export function SignInButton() {
     </Button>
   )
 }
-
