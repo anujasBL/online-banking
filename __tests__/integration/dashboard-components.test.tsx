@@ -33,7 +33,7 @@ jest.mock("../../src/hooks/use-transactions", () => ({
           senderAccountId: "account-1",
           receiverAccountId: "account-2",
           senderAccount: { accountNumber: "1234" },
-          receiverAccount: { accountNumber: "5678" }
+          receiverAccount: { accountNumber: "5678" },
         },
         {
           id: "2",
@@ -43,16 +43,16 @@ jest.mock("../../src/hooks/use-transactions", () => ({
           senderAccountId: "account-1",
           receiverAccountId: "account-2",
           senderAccount: { accountNumber: "1234" },
-          receiverAccount: { accountNumber: "5678" }
-        }
-      ]
+          receiverAccount: { accountNumber: "5678" },
+        },
+      ],
     },
     isLoading: false,
-    error: null
+    error: null,
   })),
   getTransactionAmount: jest.fn(() => 1000),
   getTransactionDirection: jest.fn(() => "Incoming"),
-  getTransactionCounterparty: jest.fn(() => ({ name: "Test Account" }))
+  getTransactionCounterparty: jest.fn(() => ({ name: "Test Account" })),
 }))
 
 const mockUseSession = useSession as jest.MockedFunction<typeof useSession>
@@ -99,11 +99,9 @@ const TestWrapper = ({ children }: { children: React.ReactNode }) => {
       },
     },
   })
-  
+
   return (
-    <QueryClientProvider client={queryClient}>
-      {children}
-    </QueryClientProvider>
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
   )
 }
 
