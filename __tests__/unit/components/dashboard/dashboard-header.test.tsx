@@ -33,7 +33,11 @@ describe('DashboardHeader Component', () => {
   })
 
   it('renders header with app title', () => {
-    mockUseSession.mockReturnValue({ data: mockSession, status: 'authenticated' })
+    mockUseSession.mockReturnValue({ 
+      data: mockSession, 
+      status: 'authenticated',
+      update: jest.fn()
+    })
     
     render(<DashboardHeader />)
     
@@ -41,7 +45,11 @@ describe('DashboardHeader Component', () => {
   })
 
   it('displays user avatar and name when authenticated', () => {
-    mockUseSession.mockReturnValue({ data: mockSession, status: 'authenticated' })
+    mockUseSession.mockReturnValue({ 
+      data: mockSession, 
+      status: 'authenticated',
+      update: jest.fn()
+    })
     
     render(<DashboardHeader />)
     
@@ -60,7 +68,11 @@ describe('DashboardHeader Component', () => {
       ...mockSession,
       user: { ...mockSession.user, image: null }
     }
-    mockUseSession.mockReturnValue({ data: sessionWithoutImage, status: 'authenticated' })
+    mockUseSession.mockReturnValue({ 
+      data: sessionWithoutImage, 
+      status: 'authenticated',
+      update: jest.fn()
+    })
     
     render(<DashboardHeader />)
     
@@ -73,7 +85,11 @@ describe('DashboardHeader Component', () => {
       ...mockSession,
       user: { ...mockSession.user, name: null }
     }
-    mockUseSession.mockReturnValue({ data: sessionWithoutName, status: 'authenticated' })
+    mockUseSession.mockReturnValue({ 
+      data: sessionWithoutName, 
+      status: 'authenticated',
+      update: jest.fn()
+    })
     
     render(<DashboardHeader />)
     
@@ -88,7 +104,11 @@ describe('DashboardHeader Component', () => {
   })
 
   it('has clickable avatar button', () => {
-    mockUseSession.mockReturnValue({ data: mockSession, status: 'authenticated' })
+    mockUseSession.mockReturnValue({ 
+      data: mockSession, 
+      status: 'authenticated',
+      update: jest.fn()
+    })
     
     render(<DashboardHeader />)
     
@@ -101,7 +121,11 @@ describe('DashboardHeader Component', () => {
   })
 
   it('includes theme toggle component', () => {
-    mockUseSession.mockReturnValue({ data: mockSession, status: 'authenticated' })
+    mockUseSession.mockReturnValue({ 
+      data: mockSession, 
+      status: 'authenticated',
+      update: jest.fn()
+    })
     
     render(<DashboardHeader />)
     
@@ -111,7 +135,11 @@ describe('DashboardHeader Component', () => {
   })
 
   it('has proper header styling and layout', () => {
-    mockUseSession.mockReturnValue({ data: mockSession, status: 'authenticated' })
+    mockUseSession.mockReturnValue({ 
+      data: mockSession, 
+      status: 'authenticated',
+      update: jest.fn()
+    })
     
     render(<DashboardHeader />)
     
@@ -123,7 +151,11 @@ describe('DashboardHeader Component', () => {
   })
 
   it('renders when no session is available', () => {
-    mockUseSession.mockReturnValue({ data: null, status: 'unauthenticated' })
+    mockUseSession.mockReturnValue({ 
+      data: null, 
+      status: 'unauthenticated',
+      update: jest.fn()
+    })
     
     render(<DashboardHeader />)
     
@@ -132,7 +164,11 @@ describe('DashboardHeader Component', () => {
   })
 
   it('renders both theme toggle and avatar buttons', () => {
-    mockUseSession.mockReturnValue({ data: mockSession, status: 'authenticated' })
+    mockUseSession.mockReturnValue({ 
+      data: mockSession, 
+      status: 'authenticated',
+      update: jest.fn()
+    })
     
     render(<DashboardHeader />)
     

@@ -4,7 +4,7 @@ async function globalSetup(config: FullConfig) {
   console.log('🚀 Starting global test setup...')
 
   // Set up test environment variables
-  process.env.NODE_ENV = 'test'
+  // Node environment is already set to test
   process.env.NEXTAUTH_SECRET = 'test-secret-key-for-e2e-tests'
   process.env.NEXTAUTH_URL = 'http://localhost:3000'
   process.env.DATABASE_URL = 'postgresql://test:test@localhost:5432/online_banking_test'

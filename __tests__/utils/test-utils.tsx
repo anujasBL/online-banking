@@ -160,7 +160,7 @@ export const cleanupTestDatabase = async () => {
 // Environment setup
 export const setupTestEnvironment = () => {
   // Set up test environment variables
-  process.env.NODE_ENV = 'test'
+  // Node environment is already set to test
   process.env.NEXTAUTH_SECRET = 'test-secret'
   process.env.NEXTAUTH_URL = 'http://localhost:3000'
 }

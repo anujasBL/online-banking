@@ -10,7 +10,11 @@ jest.mock('next-auth', () => ({
 }))
 
 jest.mock('next-auth/react', () => ({
-  useSession: jest.fn(),
+  useSession: jest.fn(() => ({
+    data: null,
+    status: 'unauthenticated',
+    update: jest.fn(),
+  })),
   signIn: jest.fn(),
   signOut: jest.fn(),
   SessionProvider: ({ children }) => children,

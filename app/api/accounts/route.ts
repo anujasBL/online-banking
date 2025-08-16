@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
-import { authOptions } from "@/lib/auth"
+import { authOptions } from "@/src/lib/auth"
 import { prisma } from "@/lib/prisma"
 import { generateAccountNumber, generateRoutingNumber } from "@/lib/utils"
 
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
     
@@ -27,7 +27,10 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({ accounts })
   } catch (error) {
-    console.error("Error fetching accounts:", error)
+    // Log error in production - could use a proper logging service
+    if (process.env.NODE_ENV === 'development') {
+      console.error("Error fetching accounts:", error)
+    }
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }
@@ -35,7 +38,7 @@ export async function GET(request: NextRequest) {
   }
 }
 
-export async function POST(request: NextRequest) {
+export async function POST(_request: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
     
@@ -46,7 +49,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const body = await request.json()
+    const body = await _request.json()
     const { accountType = "CHECKING" } = body
 
     const account = await prisma.bankAccount.create({
@@ -61,7 +64,10 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ account })
   } catch (error) {
-    console.error("Error creating account:", error)
+    // Log error in production - could use a proper logging service
+    if (process.env.NODE_ENV === 'development') {
+      console.error("Error creating account:", error)
+    }
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

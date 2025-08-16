@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation"
 import { getServerSession } from "next-auth"
-import { authOptions } from "@/lib/auth"
+import { authOptions } from "@/src/lib/auth"
 import { prisma } from "@/lib/prisma"
 import { DashboardHeader } from "@/components/dashboard/dashboard-header"
 import { AccountOverview } from "@/components/dashboard/account-overview"
@@ -44,14 +44,14 @@ export default async function DashboardPage() {
     bankAccounts = [{
       id: newAccount.id,
       accountType: newAccount.accountType,
-      balance: Number(newAccount.balance),
+      balance: Number(newAccount.balance.toString()),
       accountNumber: newAccount.accountNumber,
     }]
   } else {
     // Convert Decimal to number for display
     bankAccounts = bankAccounts.map(account => ({
       ...account,
-      balance: Number(account.balance)
+      balance: Number(account.balance.toString())
     }))
   }
 
@@ -65,7 +65,7 @@ export default async function DashboardPage() {
             Welcome back, {session.user.name?.split(' ')[0]}!
           </h2>
           <p className="text-muted-foreground">
-            Here's an overview of your accounts and recent activity.
+            Here&apos;s an overview of your accounts and recent activity.
           </p>
         </div>
 
