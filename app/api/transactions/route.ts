@@ -16,9 +16,12 @@ export async function GET(request: NextRequest) {
 
     // Ensure request.url is valid before creating URL object
     if (!request.url) {
-      return NextResponse.json({ error: "Invalid request URL" }, { status: 400 })
+      return NextResponse.json(
+        { error: "Invalid request URL" },
+        { status: 400 }
+      )
     }
-    
+
     let searchParams
     try {
       const url = new URL(request.url)
