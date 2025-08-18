@@ -43,19 +43,19 @@ test.describe("Dashboard Functionality", () => {
                 accountType: "CHECKING",
                 user: {
                   name: "Test User",
-                  email: "test@example.com"
-                }
+                  email: "test@example.com",
+                },
               },
               receiverAccount: null,
               externalAccountNumber: null,
               externalRoutingNumber: null,
-              externalBankName: null
-            }
+              externalBankName: null,
+            },
           ],
           totalCount: 1,
           currentPage: 1,
-          totalPages: 1
-        })
+          totalPages: 1,
+        }),
       })
     })
   })
@@ -106,8 +106,6 @@ test.describe("Dashboard Functionality", () => {
     await expect(page.getByText("Pay Bills")).toBeVisible()
     await expect(page.getByText("View Statements")).toBeVisible()
   })
-
-
 
   test("should have functional header with user dropdown", async ({ page }) => {
     await page.goto("/test-dashboard")
