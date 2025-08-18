@@ -14,7 +14,18 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
-    const { searchParams } = new URL(request.url)
+    // Ensure request.url is valid before creating URL object
+    if (!request.url) {
+      return NextResponse.json({ error: "Invalid request URL" }, { status: 400 })
+    }
+    
+    let searchParams
+    try {
+      const url = new URL(request.url)
+      searchParams = url.searchParams
+    } catch (error) {
+      return NextResponse.json({ error: "Invalid URL format" }, { status: 400 })
+    }
 
     // Parse and validate query parameters
     const filters = {
